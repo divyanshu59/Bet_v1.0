@@ -46,7 +46,7 @@ if($login == 1)
                 <input type="password" name="password" placeholder="Password" required>
                 <center><button name="login" type="submit">Login</button></center>
                 <hr>
-                <p><a href="signup.php">Create an Account</a> <a id="right" href="forgetpass.php">Forget Password?</a></p>
+                <p> <a id="right" href="forgetpass.php">Forget Password?</a></p>
             </form>   
         </section>
     </main>

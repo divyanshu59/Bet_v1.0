@@ -1,4 +1,5 @@
 <?php 
+ob_start();
 /*  CONNECTION TO MYSQL DATABASE  */
 
 $servername = "localhost";
