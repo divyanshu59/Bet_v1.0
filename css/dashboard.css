@@ -1,0 +1,187 @@
+body {
+  margin: 0;
+}
+
+header {
+  background: #005dff;
+  padding: 15px;
+  color: white;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+}
+
+header span#sitetitle {
+  font-size: 30px;
+  color: white;
+}
+
+header span#sitetitle a {
+  text-decoration: none;
+  color: white;
+}
+
+header span#credits {
+  font-size: 25px;
+  text-align: center;
+  float: right;
+  margin-right: 20px;
+}
+
+@media (max-width: 680px) {
+  header span#credits {
+    display: none;
+  }
+}
+
+header span#user {
+  float: right;
+  margin-right: 20px;
+}
+
+header span#user img {
+  height: 50px;
+}
+
+header span#mobile {
+  font-size: 25px;
+  margin-right: 20px;
+  display: none;
+}
+
+@media (max-width: 680px) {
+  header span#mobile {
+    display: inline;
+  }
+}
+
+main {
+  margin: 0px;
+}
+
+main div#menu {
+  margin: 0px;
+  background: #003899;
+  width: 250px;
+  height: 100%;
+  position: fixed;
+}
+
+@media (max-width: 680px) {
+  main div#menu {
+    display: none;
+  }
+}
+
+main div#menu div#items {
+  padding: 15px;
+  list-style-type: none;
+}
+
+main div#menu div#items a {
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+main div#menu div#items:hover {
+  background: #669eff;
+}
+
+main div#content {
+  margin-left: 250px;
+  background: #d3d3d3;
+  padding: 30px;
+  height: 86vh;
+}
+
+@media (max-width: 680px) {
+  main div#content {
+    margin-left: 0px;
+  }
+}
+
+main div#box {
+  background: white;
+  padding: 20px;
+  border: none;
+  border-radius: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+main div#box div#flexbox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+main div#box div#flexbox div#card1 {
+  margin: 10px;
+  margin-top: 20px;
+  padding: 10px;
+  border: none;
+  width: 250px;
+  background: white;
+  -webkit-box-shadow: 0 0 10px #333333;
+          box-shadow: 0 0 10px #333333;
+}
+
+main div#box div#flexbox div#card1 a#btn {
+  padding: 20px;
+  background: #2bb102;
+  color: papayawhip;
+}
+
+main div#box div#flexbox div#card2 {
+  margin: 10px;
+  margin-top: 20px;
+  padding: 10px;
+  border: none;
+  width: 500px;
+  background: white;
+  -webkit-box-shadow: 0 0 10px #333333;
+          box-shadow: 0 0 10px #333333;
+}
+
+main div#box div#flexbox div#card2 a#btn {
+  padding: 20px;
+  background: #2bb102;
+  color: papayawhip;
+}
+
+main div#box div#flexbox div#card3 {
+  margin: 10px;
+  margin-top: 20px;
+  padding: 10px;
+  border: none;
+  width: 750px;
+  background: white;
+  -webkit-box-shadow: 0 0 10px #333333;
+          box-shadow: 0 0 10px #333333;
+}
+
+main div#box div#flexbox div#card3 a#btn {
+  padding: 20px;
+  background: #2bb102;
+  color: papayawhip;
+}
+
+main div#box #betform select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid blue;
+}
+
+main div#box #betform input {
+  margin-top: 20px;
+  padding: 5px;
+  width: 100%;
+  color: white;
+  background: green;
+  border: none;
+  border-radius: 25px;
+  font-size: 25px;
+}
+/*# sourceMappingURL=dashboard.css.map */

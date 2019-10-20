@@ -1,0 +1,152 @@
+<?php
+require_once 'assets/import/config.php';
+
+$login = 0;
+$donebetting = 0;
+
+if (isset($_COOKIE["login"])) {
+    $username = $_COOKIE["username"];
+    $password = $_COOKIE["password"];
+    $login = 1;
+}
+if ($login != 1) {
+    header('Location: index.php');
+    die("Please Wait You are Rediritig..");
+}
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+} else {
+    header('Location: dashboard.php');
+}
+
+
+$sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
+$result = mysqli_query($con, $sql);
+if (mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_array($result);
+    $credits = $row[6];
+}
+
+$sql2 = "SELECT * FROM `tossbet` WHERE `username` = '$username' and `tossid` = '$id' ";
+$result2 = mysqli_query($con, $sql2);
+if (mysqli_num_rows($result2) > 0) {
+    $row = mysqli_fetch_array($result2);
+    $donebetting = 1;
+}
+?>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $SiteName; ?> - Show Toss</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+    <header>
+        <span id="mobile" onclick="opennav()"><i class="fa fa-bars" aria-hidden="true"></i></span>
+        <span id="sitetitle"><a href="dashboard.php"><?php echo $SiteName; ?></a></span>
+        <span id="user"><img src="assets/img/avatar.png"></span>
+        <span id="credits">C: <?php echo $credits ?></span>
+    </header>
+    <main>
+        <div id="menu">
+            <div id="items"><a><i class="fa fa-bank" aria-hidden="true"></i> Balance Information
+                    <br><br>
+                    Credits: <?php echo $credits ?></a></div>
+                    <div id="items"><a href="openbets.php"><i class="fa fa-list" aria-hidden="true"></i> Open Bets</a></div>
+            <div id="items"><a href="bettingpnl.php"><i class="fa fa-money" aria-hidden="true"></i> Betting P&L</a></div>
+            <div id="items"><a href="transfer.php"><i class="fa fa-book" aria-hidden="true"></i> Transfer Statement</a></div>
+            <div id="items"><a href="timesetting.php"><i class="fa fa-clock-o" aria-hidden="true"></i> Time Setting</a></div>
+            <div id="items"><a href="rules.php"><i class="fa fa-ban" aria-hidden="true"></i> Rules & Regulations</a></div>
+            <div id="items"><a href="setting.php"><i class="fa fa-gear" aria-hidden="true"></i> Settings</a></div>
+            <div id="items"><a href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></div>
+
+
+        </div>
+
+        <div id="content">
+            <div id="box">
+                <h2>Betting</h2>
+                <hr>
+                <?php
+                $sql = "SELECT * FROM `toss` WHERE `status` = 1";
+                $result = mysqli_query($con, $sql);
+                if (mysqli_num_rows($result) > 0) {
+                    $row = mysqli_fetch_array($result);
+
+                    echo "
+                            <div id='card1'>
+                            #$row[0]
+                            <h4>$row[2]<h4>
+                            <hr>
+                            <li>Team 1: $row[3]</li>
+                            <br>
+                            <li>Team 2: $row[4]</li>
+                            <br>
+                            <span style='color: green'>Price: $row[6]</span>
+                            <br>
+                            <br>
+                            <h3>Place Your Bet </h3>";
+                    if ($donebetting == 1) {
+                        echo "<h4 style='color: #f00;'>You have Already Done Betting</h4>";
+                    } else {
+                        echo "<form action='showtoss.php' id='betform' method='post'>
+                                <select name='team' id=''>
+                                    <option value='$row[3]'>$row[3]</option>
+                                    <option value='$row[4]'>$row[4]</option>
+                                </select>
+                                <br>
+                                <input type='hidden' value='$username' name='username' >
+                                <input type='hidden' value='$row[0]' name='tossid' >
+                                <input type='hidden' value='$row[5]' name='amount' >
+                               
+                                <input type='submit' name='betme' value='Pay $row[5] Credits'>
+                            </form>";
+                    }
+                    echo "
+
+                            </div>
+                            ";
+                }
+                ?>
+
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/main.js"></script>
+</body>
+
+</html>
+
+<?php
+if (isset($_POST['betme'])) {
+    $team = $_POST['team'];
+    $username = $_POST['username'];
+    $tossid = $_POST['tossid'];
+    $amount = $_POST['amount'];
+
+    $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_array($result);
+        $credits = $row[6];
+        $credits = $credits - $amount;
+
+        $sql2 = "UPDATE `users` SET `credits`='$credits' WHERE `username` = '$username' ";
+        $result2 = mysqli_query($con, $sql2);
+
+        $sql3 = "INSERT INTO `tossbet`( `username`, `tossid`, `team`, `amount`, `status`) 
+        VALUES ('$username','$tossid','$team','$amount', 1)";
+        $result3 = mysqli_query($con, $sql3);
+
+        if ($result3)
+            header('Location: dashboard.php');
+    }
+}
+?>

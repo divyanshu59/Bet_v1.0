@@ -1,0 +1,160 @@
+$colors: (
+  bg: #005dff,
+  //bg: #f00,
+  bg-light: lighten(#005dff, 20%),
+  bg-dark: darken(#005dff, 20%),
+  textPrimary: rgb(255, 255, 255),
+  bgWhite: rgb(255, 255, 255),
+  primary-light: lighten(#005dff, 40%),
+  primary-dark: darken(#005dff, 40%),
+  dark: rgb(253, 214, 39),
+  black: lighten(#000000, 20%)
+);
+
+$padding: 15px;
+$borders: 15px;
+$fontBig: 30px;
+
+@function color($color-name) {
+  @return map-get($colors, $color-name);
+}
+
+$mobile: 680px;
+
+
+@mixin mobile {
+  @media (max-width: #{$mobile}) {
+    @content;
+  }
+}
+
+
+body {
+  margin: 0;
+}
+
+header{
+  background: color(bg);
+  padding: $padding;
+  color: color(textPrimary);
+  position: sticky;
+  top: 0px;
+  span#sitetitle{
+    font-size: $fontBig;
+    color: white;
+    a{
+      text-decoration: none; 
+      color:white
+    }
+  }
+  span#credits{
+    font-size: 25px;
+    text-align: center;
+    float: right;
+    margin-right: 20px;
+    @include mobile {
+      display: none;
+    }
+  }
+  span#user{
+    float: right;
+    margin-right: 20px;
+    img{
+      height: 50px;
+    }
+  }
+  span#mobile{
+    font-size: 25px;
+    margin-right: 20px;
+    display: none;
+    @include mobile {
+      display: inline;
+    }
+  }
+}
+
+main{
+  margin: 0px;
+  
+  div#menu{
+    margin: 0px;
+    background: color(bg-dark);
+    width: 250px;
+    height: 100%;
+    position: fixed;
+   
+    @include mobile {
+      display: none;
+    }
+
+    div#items{
+      padding: $padding;
+      list-style-type: none;
+     
+      a{
+          color: color(textPrimary);
+          font-family: Arial, Helvetica, sans-serif;
+          text-align: center;
+          text-decoration: none;
+          font-size: 20px;
+      }
+      &:hover{
+        background: color(bg-light);
+      }
+    }
+  }
+  div#content{
+    margin-left: 250px;
+    background: #d3d3d3;
+    padding: 30px;
+    height: 86vh;
+
+    @include mobile {
+      margin-left: 0px;
+    }
+  }
+  div#box{
+    background: color(textPrimary);
+    padding: 20px;
+    border: none;
+    border-radius: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    div#flexbox{
+      display: flex;
+    @for $i from 1 through 3 {
+      div#card#{$i} {
+        margin: 10px;
+        margin-top: 20px;
+        padding: 10px;
+        border: none;
+        width: (250 * $i) * 1px;
+        background: white;
+        box-shadow: 0 0 10px color(black);
+        a#btn{
+          padding: 20px;
+          background: rgb(43, 177, 2);
+          color: papayawhip;
+        }
+        
+      }
+    }
+  }
+  #betform{
+    select{
+      width: 100%;
+      padding: 10px;
+      border: 1px solid blue; 
+    }
+    input{
+      margin-top: 20px;
+      padding: 5px;
+      width: 100%;
+      color: white;
+      background: green;
+      border: none;
+      border-radius: 25px;
+      font-size: 25px;
+    }
+  }
+  }
+}
