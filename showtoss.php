@@ -74,7 +74,7 @@ if (mysqli_num_rows($result2) > 0) {
                 <h2>Betting</h2>
                 <hr>
                 <?php
-                $sql = "SELECT * FROM `toss` WHERE `status` = 1";
+                $sql = "SELECT * FROM `toss` WHERE `status` = 1 and `time` > now() and `id` = '$id' ";
                 $result = mysqli_query($con, $sql);
                 if (mysqli_num_rows($result) > 0) {
                     $row = mysqli_fetch_array($result);
@@ -112,6 +112,10 @@ if (mysqli_num_rows($result2) > 0) {
 
                             </div>
                             ";
+                }
+                else
+                {
+                    echo "<center style='color: red;'>Toss Game Expired</center>";
                 }
                 ?>
 

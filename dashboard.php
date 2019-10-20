@@ -61,7 +61,7 @@ $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
                 <div id="flexbox">
                     <?php
                     $i = 0;
-                    $sql = "SELECT * FROM `toss` WHERE `status` = 1";
+                    $sql = "SELECT * FROM `toss` WHERE `status` = 1 and `time` > now() ";
                     $result = mysqli_query($con, $sql);
                     if (mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_array($result)) {
