@@ -1,23 +1,26 @@
-<?php 
+<?php
 require_once '../../assets/import/config.php';
 
 
-$login =0;
-if(isset($_COOKIE['Alogin']))
-{
-	$adminemail = $_COOKIE["Aemail"];
+$login = 0;
+if (isset($_COOKIE['Alogin'])) {
+    $adminemail = $_COOKIE["Aemail"];
     $adminname = $_COOKIE["Aname"];
-}
-else
-{
+} else {
     header('Location: login.php');
-	die("Please Wait You are Rediritig..");
+    die("Please Wait You are Rediritig..");
+}
+
+
+if (isset($_GET['delete'])) {
+    setcookie("text", "", time() + (-86400 * 5), "/");
+    header('location: addteam.php');
 }
 ?>
 
 <!doctype html>
 <html lang="en">
- 
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -51,7 +54,7 @@ else
                 </button>
                 <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto navbar-right-top">
-                        
+
                         <li class="nav-item dropdown notification">
                             <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span class="indicator"></span></a>
                             <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
@@ -59,7 +62,9 @@ else
                                     <div class="notification-title"> Notification</div>
                                     <div class="notification-list">
                                         <div class="list-group">
-                                            <center><p>No Notifications</p></center>
+                                            <center>
+                                                <p>No Notifications</p>
+                                            </center>
                                         </div>
                                     </div>
                                 </li>
@@ -68,12 +73,12 @@ else
                                 </li>
                             </ul>
                         </li>
-                       
+
                         <li class="nav-item dropdown nav-user">
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../assets/images/avatar-1.jpg" alt="" class="user-avatar-md rounded-circle"></a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
-                                    <h5 class="mb-0 text-white nav-user-name"><?php echo $adminname ?>  </h5>
+                                    <h5 class="mb-0 text-white nav-user-name"><?php echo $adminname ?> </h5>
                                     <span class="status"></span><span class="ml-2">Available</span>
                                 </div>
                                 <span class="dropdown-item" href="#"><?php echo $adminemail ?></span>
@@ -103,8 +108,8 @@ else
                                 Menu
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " href="../index.php" ><i class="fa fa-fw fa-user-circle"></i>Dashboard </a>
-                                
+                                <a class="nav-link " href="../index.php"><i class="fa fa-fw fa-user-circle"></i>Dashboard </a>
+
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>Users</a>
@@ -155,7 +160,7 @@ else
                                     </ul>
                                 </div>
                             </li>
-                            
+
                         </ul>
                     </div>
                 </nav>
@@ -177,7 +182,7 @@ else
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="page-header">
                                 <h2 class="pageheader-title"><?php echo $SiteName; ?> Dashboard</h2>
-                                
+
                                 <div class="page-breadcrumb">
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb">
@@ -193,10 +198,41 @@ else
                     <!-- ============================================================== -->
                     <!-- end pageheader  -->
                     <!-- ============================================================== -->
-                    <div class="ecommerce-widget">
-                      <br><br><br><br><br><br><br><br><br>
-                      <br><br><br><br><br><br><br><br><br>
-                      <br><br><br><br><br><br><br><br>
+                    <div class="container1" id="formbox">
+                        <h2>Add A Team</h2>
+
+                        <form action="addteam.php" method="post">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" name="name" placeholder="Enter Name of Team" required>
+                            <br>
+                            <label for="type">Sport Name</label>
+                            <select class="form-control" name="sport" id="">
+                                <?php
+                                $sql = "SELECT * FROM `sport` WHERE `status` = 1 ";
+                                $result = mysqli_query($con, $sql);
+                                if (mysqli_num_rows($result) > 0) {
+                                    while ($row = mysqli_fetch_array($result)) {
+                                        echo "<option value='$row[0]'>$row[1]</option>";
+                                    }
+                                }
+
+                                ?>
+                            </select>
+                            <br>
+                            <input type="submit" name="submit" value="Add New Sport" class="btn btn-success">
+                            <input type="reset" value="Reset" class="btn btn-danger">
+                        </form>
+                    </div>
+                    <div class="container1" id="result">
+                        <p id="resultText">
+                            <?php
+                            if (isset($_COOKIE["text"])) {
+                                echo $_COOKIE["text"];
+                                echo '<a href="addteam.php?delete=true" class="btn btn-success">Ok</a>';
+                            }
+
+                            ?>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -207,9 +243,9 @@ else
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                             Copyright © 2019 <?php echo $SiteName; ?>  All rights reserved. Dashboard by <a href="https://bilwg.com/">Bilwg</a>.
+                            Copyright © 2019 <?php echo $SiteName; ?> All rights reserved. Dashboard by <a href="https://bilwg.com/">Bilwg</a>.
                         </div>
-                     
+
                     </div>
                 </div>
             </div>
@@ -233,6 +269,37 @@ else
     <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
     <!-- main js -->
     <script src="../assets/libs/js/main-js.js"></script>
-    </body>
- 
+</body>
+
 </html>
+
+<?php
+if (isset($_POST['submit'])) {
+    $name = $_POST['name'];
+    $sport = $_POST['sport'];
+
+    $sql = "SELECT * FROM `sport` WHERE `id` = '$sport' ";
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_array($result);
+            $sportname = $row[1];
+        }
+
+
+    $sql1 = "INSERT INTO `team`(`name`, `sportid`, `sportname`, `status`)
+     VALUES ('$name','$sport','$sportname',1)";
+    $queryRun1 = mysqli_query($con, $sql1);
+    if ($queryRun1) {
+        $text = "
+        <script>
+        document.getElementById('formbox').style.display = 'none';
+       </script>
+       <h3>Team Added!</h3>
+        <p>Team Name: $name </p>
+        ";
+        setcookie("text", $text, time() + (86400 * 5), "/");
+        header('Location: addteam.php');
+    }
+}
+
+?>

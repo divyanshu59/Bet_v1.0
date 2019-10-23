@@ -12,6 +12,13 @@ else
     header('Location: login.php');
 	die("Please Wait You are Rediritig..");
 }
+
+
+if(isset( $_GET['delete']))
+{
+    setcookie("text", "", time() + (-86400 * 5), "/");
+    header('location: addsport.php');
+}
 ?>
 
 <!doctype html>
@@ -192,10 +199,35 @@ else
                     <!-- ============================================================== -->
                     <!-- end pageheader  -->
                     <!-- ============================================================== -->
-                    <div class="ecommerce-widget">
-                      <br><br><br><br><br><br><br><br><br>
-                      <br><br><br><br><br><br><br><br><br>
-                      <br><br><br><br><br><br><br><br>
+                    <div class="container1" id="formbox">
+                        <h2>Add A Sport</h2>
+
+                        <form action="addsport.php" method="post">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" name="name" placeholder="Enter Name of Sport" required>
+                            <br>
+                            <label for="type">Type</label>
+                            <select class="form-control" name="type" id="">
+                                <option value="SINGLE">Single Player</option>
+                                <option value="TEAM">Team</option>
+                            </select>
+                            <br>
+                            <input type="submit" name="submit" value="Add New Sport" class="btn btn-success">
+                            <input type="reset" value="Reset" class="btn btn-danger">
+                        </form>
+                    </div>
+                    <div class="container1" id="result">
+                        <p id="resultText">
+                            <?php
+                            if (isset($_COOKIE["text"]))
+                            {
+                                echo $_COOKIE["text"];
+                                echo '<a href="addsport.php?delete=true" class="btn btn-success">Ok</a>';
+                               
+                            }
+                            
+                            ?>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -235,3 +267,29 @@ else
     </body>
  
 </html>
+
+<?php
+if(isset($_POST['submit']))
+{
+    $name = $_POST['name'];
+    $type = $_POST['type'];
+   
+
+    $sql = "INSERT INTO `sport`( `name`, `type`, `status`) 
+    VALUES ('$name','$type',1)";
+    $queryRun = mysqli_query($con, $sql);
+    if($queryRun)
+    {
+        $text ="
+        <script>
+        document.getElementById('formbox').style.display = 'none';
+       </script>
+       <h3>Sport Added!</h3>
+        <p>Sport Name: $name </p>
+        ";
+        setcookie("text", $text, time() + (86400 * 5), "/");
+        header('Location: addsport.php');
+    }
+}
+
+?>

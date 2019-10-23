@@ -223,8 +223,8 @@ if(isset( $_GET['delete']))
                         </form>
                       </div>
                       <div class="container1" id="result">
-                      <p id="resultText">
-                        <?php
+                        <p id="resultText">
+                            <?php
                             if (isset($_COOKIE["text"]))
                             {
                                 echo $_COOKIE["text"];
@@ -232,8 +232,8 @@ if(isset( $_GET['delete']))
                                
                             }
                             
-                        ?>
-                      </p>
+                            ?>
+                        </p>
                       </div>
                     
                     <br><br>
