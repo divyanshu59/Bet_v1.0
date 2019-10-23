@@ -1,23 +1,26 @@
-<?php 
+<?php
 require_once '../../assets/import/config.php';
 
 
-$login =0;
-if(isset($_COOKIE['Alogin']))
-{
-	$adminemail = $_COOKIE["Aemail"];
+$login = 0;
+if (isset($_COOKIE['Alogin'])) {
+    $adminemail = $_COOKIE["Aemail"];
     $adminname = $_COOKIE["Aname"];
-}
-else
-{
+} else {
     header('Location: login.php');
-	die("Please Wait You are Rediritig..");
+    die("Please Wait You are Rediritig..");
+}
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+} else {
+    header('Location: managesport.php');
 }
 ?>
 
 <!doctype html>
 <html lang="en">
- 
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -51,7 +54,7 @@ else
                 </button>
                 <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto navbar-right-top">
-                        
+
                         <li class="nav-item dropdown notification">
                             <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span class="indicator"></span></a>
                             <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
@@ -59,7 +62,9 @@ else
                                     <div class="notification-title"> Notification</div>
                                     <div class="notification-list">
                                         <div class="list-group">
-                                            <center><p>No Notifications</p></center>
+                                            <center>
+                                                <p>No Notifications</p>
+                                            </center>
                                         </div>
                                     </div>
                                 </li>
@@ -68,12 +73,12 @@ else
                                 </li>
                             </ul>
                         </li>
-                       
+
                         <li class="nav-item dropdown nav-user">
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../assets/images/avatar-1.jpg" alt="" class="user-avatar-md rounded-circle"></a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
-                                    <h5 class="mb-0 text-white nav-user-name"><?php echo $adminname ?>  </h5>
+                                    <h5 class="mb-0 text-white nav-user-name"><?php echo $adminname ?> </h5>
                                     <span class="status"></span><span class="ml-2">Available</span>
                                 </div>
                                 <span class="dropdown-item" href="#"><?php echo $adminemail ?></span>
@@ -103,8 +108,8 @@ else
                                 Menu
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " href="../index.php" ><i class="fa fa-fw fa-user-circle"></i>Dashboard </a>
-                                
+                                <a class="nav-link " href="../index.php"><i class="fa fa-fw fa-user-circle"></i>Dashboard </a>
+
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>Users</a>
@@ -113,6 +118,7 @@ else
                                         <li class="nav-item">
                                             <a class="nav-link" href="adduser.php">Add User </a>
                                             <a class="nav-link" href="pages/manageuser.php">Manage User </a>
+
                                         </li>
                                     </ul>
                                 </div>
@@ -156,7 +162,7 @@ else
                                     </ul>
                                 </div>
                             </li>
-                            
+
                         </ul>
                     </div>
                 </nav>
@@ -178,13 +184,14 @@ else
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="page-header">
                                 <h2 class="pageheader-title"><?php echo $SiteName; ?> Dashboard</h2>
-                                
+
                                 <div class="page-breadcrumb">
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="../index.php" class="breadcrumb-link">Dashboard</a></li>
                                             <li class="breadcrumb-item"><a href="" class="breadcrumb-link">Teams</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Manage Team</li>
+                                            <li class="breadcrumb-item"><a href="" class="breadcrumb-link">Manage Teams</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Edit Team</li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -194,44 +201,39 @@ else
                     <!-- ============================================================== -->
                     <!-- end pageheader  -->
                     <!-- ============================================================== -->
-                   
-                    <div class="container1">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Name</th>
-                                        <th>Sport</th>
-                                        <th>Status</th>
-                                        <th>Edit</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $sql = "SELECT * FROM `team` ";
-                                    $result = mysqli_query($con, $sql);
-                                    if (mysqli_num_rows($result) > 0) {
-                                        while ($row = mysqli_fetch_array($result)) {
-                                            $status = ($row[4]) ? "Active" : "Disabled";
-                                            echo "
-                                             <tr>
-                                             <td>#$row[0]</td>
-                                             <td>$row[1]</td>
-                                             <td>$row[3]</td>
-                                             <td>$status</td>
-                                             <td><a href='editteam.php?id=$row[0]' class='btn btn-info'>Edit</td>
-                                             </tr>
-                                             ";
-                                        }
-                                    }
 
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="container1">
+                        <h2>Edit Sport</h2>
+                        <?php
+                        $sql = "SELECT * FROM `team` WHERE `id` = '$id' ";
+                        $result = mysqli_query($con, $sql);
+                        if (mysqli_num_rows($result) > 0) {
+                            $row = mysqli_fetch_array($result);
+
+                            echo "
+                                    <form action='editteam.php' method='post'>
+                                        <input type='hidden' value='$row[0]' name='id'>
+                                        <label>Name</label>
+                                        <input type='text' value='$row[1]' placeholder='Team Name' name='name' class='form-control' required>
+                                        <br>
+                                        <label>Sport</label>
+                                        <input type='text' value='$row[3]' class='form-control' disabled>
+                                        <br>
+                                        <label>Status</label>
+                                        <select name='status' class='form-control'>
+                                            <option value='1'>Active</option>
+                                            <option value='0'>Disabled</option>
+                                        </select>
+                                        <br>
+                                        <input type='submit' name='submit' value='update' class='btn btn-warning'>
+                                    </form>
+                                    ";
+                        }
+
+                        ?>
+
                     </div>
-                    
+
                 </div>
             </div>
             <!-- ============================================================== -->
@@ -241,9 +243,9 @@ else
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                             Copyright © 2019 <?php echo $SiteName; ?>  All rights reserved. Dashboard by <a href="https://bilwg.com/">Bilwg</a>.
+                            Copyright © 2019 <?php echo $SiteName; ?> All rights reserved. Dashboard by <a href="https://bilwg.com/">Bilwg</a>.
                         </div>
-                     
+
                     </div>
                 </div>
             </div>
@@ -267,6 +269,23 @@ else
     <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
     <!-- main js -->
     <script src="../assets/libs/js/main-js.js"></script>
-    </body>
- 
+</body>
+
 </html>
+<?php 
+if (isset($_POST['submit'])) {
+    # code...
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $status = $_POST['status'];
+
+    $sql = "UPDATE `team` SET `name`='$name',`status`= '$status' WHERE `id` = '$id' ";
+    $queryRun = mysqli_query($con, $sql);
+    if($queryRun)
+    {
+        header('Location: manageteam.php');
+    }
+}
+
+
+?>
