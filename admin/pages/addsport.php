@@ -118,7 +118,7 @@ if(isset( $_GET['delete']))
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
                                             <a class="nav-link" href="adduser.php">Add User </a>
-                                            <a class="nav-link" href="pages/manageuser.php">Manage User </a>
+                                            <a class="nav-link" href="manageuser.php">Manage User </a>
                                         </li>
                                     </ul>
                                 </div>

@@ -111,7 +111,7 @@ if (isset($_COOKIE['Alogin'])) {
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
                                             <a class="nav-link" href="adduser.php">Add User </a>
-                                            <a class="nav-link" href="pages/manageuser.php">Manage User </a>
+                                            <a class="nav-link" href="manageuser.php">Manage User </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -212,7 +212,7 @@ if (isset($_COOKIE['Alogin'])) {
                                     $result = mysqli_query($con, $sql);
                                     if (mysqli_num_rows($result) > 0) {
                                         while ($row = mysqli_fetch_array($result)) {
-                                            $status = ($row[3]) ? "Active" : "Disabled";
+                                            $status = ($row[3]==1) ? "Active" : "Disabled";
                                             echo "
                                              <tr>
                                              <td>#$row[0]</td>

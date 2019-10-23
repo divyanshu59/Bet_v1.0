@@ -112,7 +112,7 @@ else
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
                                             <a class="nav-link" href="adduser.php">Add User </a>
-                                            <a class="nav-link" href="pages/manageuser.php">Manage User </a>
+                                            <a class="nav-link" href="manageuser.php">Manage User </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -213,7 +213,7 @@ else
                                     $result = mysqli_query($con, $sql);
                                     if (mysqli_num_rows($result) > 0) {
                                         while ($row = mysqli_fetch_array($result)) {
-                                            $status = ($row[4]) ? "Active" : "Disabled";
+                                            $status = ($row[4]==1) ? "Active" : "Disabled";
                                             echo "
                                              <tr>
                                              <td>#$row[0]</td>

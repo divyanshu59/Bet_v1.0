@@ -117,7 +117,7 @@ if (isset($_GET['id'])) {
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
                                             <a class="nav-link" href="adduser.php">Add User </a>
-                                            <a class="nav-link" href="pages/manageuser.php">Manage User </a>
+                                            <a class="nav-link" href="manageuser.php">Manage User </a>
 
                                         </li>
                                     </ul>
@@ -191,7 +191,7 @@ if (isset($_GET['id'])) {
                                             <li class="breadcrumb-item"><a href="../index.php" class="breadcrumb-link">Dashboard</a></li>
                                             <li class="breadcrumb-item"><a href="" class="breadcrumb-link">Sports</a></li>
                                             <li class="breadcrumb-item"><a href="" class="breadcrumb-link">Manage Sports</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Edit User</li>
+                                            <li class="breadcrumb-item active" aria-current="page">Edit Sport</li>
                                         </ol>
                                     </nav>
                                 </div>
