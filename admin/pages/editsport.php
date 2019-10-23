@@ -10,6 +10,12 @@ if (isset($_COOKIE['Alogin'])) {
     header('Location: login.php');
     die("Please Wait You are Rediritig..");
 }
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+} else {
+    header('Location: managesport.php');
+}
 ?>
 
 <!doctype html>
@@ -112,6 +118,7 @@ if (isset($_COOKIE['Alogin'])) {
                                         <li class="nav-item">
                                             <a class="nav-link" href="adduser.php">Add User </a>
                                             <a class="nav-link" href="pages/manageuser.php">Manage User </a>
+
                                         </li>
                                     </ul>
                                 </div>
@@ -183,7 +190,8 @@ if (isset($_COOKIE['Alogin'])) {
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="../index.php" class="breadcrumb-link">Dashboard</a></li>
                                             <li class="breadcrumb-item"><a href="" class="breadcrumb-link">Sports</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Manage Sports</li>
+                                            <li class="breadcrumb-item"><a href="" class="breadcrumb-link">Manage Sports</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Edit User</li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -195,40 +203,38 @@ if (isset($_COOKIE['Alogin'])) {
                     <!-- ============================================================== -->
 
                     <div class="container1">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Status</th>
-                                        <th>Edit</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $sql = "SELECT * FROM `sport` ";
-                                    $result = mysqli_query($con, $sql);
-                                    if (mysqli_num_rows($result) > 0) {
-                                        while ($row = mysqli_fetch_array($result)) {
-                                            $status = ($row[3]) ? "Active" : "Disabled";
-                                            echo "
-                                             <tr>
-                                             <td>#$row[0]</td>
-                                             <td>$row[1]</td>
-                                             <td>$row[2]</td>
-                                             <td>$status</td>
-                                             <td><a href='editsport.php?id=$row[0]' class='btn btn-info'>Edit</td>
-                                             </tr>
-                                             ";
-                                        }
-                                    }
+                        <h2>Edit Sport</h2>
+                        <?php
+                        $sql = "SELECT * FROM `sport` WHERE `id` = '$id' ";
+                        $result = mysqli_query($con, $sql);
+                        if (mysqli_num_rows($result) > 0) {
+                            $row = mysqli_fetch_array($result);
 
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
+                            echo "
+                                    <form action='editsport.php' method='post'>
+                                        <input type='hidden' value='$row[0]' name='id'>
+                                        <label>Name</label>
+                                        <input type='text' value='$row[1]' placeholder='Sport Name' name='name' class='form-control' required>
+                                        <br>
+                                        <label>Type</label>
+                                        <select name='type' class='form-control'>
+                                            <option value='TEAM'>Team</option>
+                                            <option value='SINGLE'>SINGLE</option>
+                                        </select>
+                                        <br>
+                                        <label>Status</label>
+                                        <select name='status' class='form-control'>
+                                            <option value='1'>Active</option>
+                                            <option value='0'>Disabled</option>
+                                        </select>
+                                        <br>
+                                        <input type='submit' name='submit' value='update' class='btn btn-warning'>
+                                    </form>
+                                    ";
+                        }
+
+                        ?>
+
                     </div>
 
                 </div>
@@ -269,3 +275,21 @@ if (isset($_COOKIE['Alogin'])) {
 </body>
 
 </html>
+<?php 
+if (isset($_POST['submit'])) {
+    # code...
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $type = $_POST['type'];
+    $status = $_POST['status'];
+
+    $sql = "UPDATE `sport` SET `name`='$name',`type`='$type',`status`='$status' WHERE `id` = '$id' ";
+    $queryRun = mysqli_query($con, $sql);
+    if($queryRun)
+    {
+        header('Location: managesport.php');
+    }
+}
+
+
+?>
