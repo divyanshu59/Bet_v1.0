@@ -115,6 +115,7 @@ else
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
                                             <a class="nav-link" href="adduser.php">Add User </a>
+                                            <a class="nav-link" href="pages/manageuser.php">Manage User </a>
                                         </li>
                                     </ul>
                                 </div>

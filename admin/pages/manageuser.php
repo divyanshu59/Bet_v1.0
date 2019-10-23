@@ -1,5 +1,4 @@
 <?php 
-
 require_once '../../assets/import/config.php';
 
 
@@ -13,13 +12,6 @@ else
 {
     header('Location: login.php');
 	die("Please Wait You are Rediritig..");
-}
-
-
-if(isset( $_GET['delete']))
-{
-    setcookie("text", "", time() + (-86400 * 5), "/");
-    header('location: adduser.php');
 }
 ?>
 
@@ -43,7 +35,7 @@ if(isset( $_GET['delete']))
     <title><?php echo $SiteName; ?> Admin Dashboard </title>
 </head>
 
-<body style="overflow-y: hidden;">
+<body>
     <!-- ============================================================== -->
     <!-- main wrapper -->
     <!-- ============================================================== -->
@@ -192,7 +184,7 @@ if(isset( $_GET['delete']))
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="../index.php" class="breadcrumb-link">Dashboard</a></li>
                                             <li class="breadcrumb-item"><a href="" class="breadcrumb-link">Users</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Add User</li>
+                                            <li class="breadcrumb-item active" aria-current="page">Manage Users</li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -203,41 +195,49 @@ if(isset( $_GET['delete']))
                     <!-- end pageheader  -->
                     <!-- ============================================================== -->
                    
-                      <div class="container1" id="formbox">
-                        <h2>Add A User</h2>
+                    <div class="container1">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Credits</th>
+                                        <th>Status</th>
+                                        <th>Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $sql = "SELECT * FROM `users` ";
+                                    $result = mysqli_query($con, $sql);
+                                    if (mysqli_num_rows($result) > 0) {
+                                        while ($row = mysqli_fetch_array($result)) {
+                                            $status = ($row[4]) ? "Active" : "Disabled";
+                                            echo "
+                                             <tr>
+                                             <td>#$row[0]</td>
+                                             <td>$row[1]</td>
+                                             <td>$row[2]</td>
+                                             <td>$row[3]</td>
+                                             <td>$row[5]</td>
+                                             <td>$row[6]</td>
+                                             <td>$status</td>
+                                             <td><a href='' class='btn btn-info'>Edit</td>
+                                             </tr>
+                                             ";
+                                        }
+                                    }
 
-                        <form action="adduser.php" method="post">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" name="name" placeholder="Enter Name of User" required>
-                            <br>
-                            <label for="username">Username</label>
-                            <input type="text" class="form-control" name="username" value="It Will Auto Generate" placeholder="Enter Username" disabled>
-                            <br>
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" name="password" placeholder="Enter Password" required>
-                            <br>
-                            <label for="credits">Credits</label>
-                            <input type="number" class="form-control" name="credits" placeholder="Credits Amount" required>
-                            <br>
-                            <input type="submit" name="submit" value="Add New User" class="btn btn-success">
-                            <input type="reset" value="Reset" class="btn btn-danger">
-                        </form>
-                      </div>
-                      <div class="container1" id="result">
-                        <p id="resultText">
-                            <?php
-                            if (isset($_COOKIE["text"]))
-                            {
-                                echo $_COOKIE["text"];
-                                echo '<a href="adduser.php?delete=true" class="btn btn-success">Ok</a>';
-                               
-                            }
-                            
-                            ?>
-                        </p>
-                      </div>
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     
-                    <br><br>
                 </div>
             </div>
             <!-- ============================================================== -->
@@ -276,32 +276,3 @@ if(isset( $_GET['delete']))
     </body>
  
 </html>
-
-<?php
-if(isset($_POST['submit']))
-{
-    $name = $_POST['name'];
-    $password = $_POST['password'];
-    $credits = $_POST['credits'];
-    $username = $name;
-    $username .= rand(0,100000);
-
-    $sql = "INSERT INTO `users`(`name`, `username`, `password`, `credits`, `status`) 
-    VALUES ('$name','$username','$password','$credits',1)";
-    $queryRun = mysqli_query($con, $sql);
-    if($queryRun)
-    {
-        $text ="
-        <script>
-        document.getElementById('formbox').style.display = 'none';
-       </script>
-       <h3>User Added!</h3>
-        <p>Username: $username </p>
-        <p>Password: $password </p>
-        ";
-        setcookie("text", $text, time() + (86400 * 5), "/");
-        header('Location: adduser.php');
-    }
-}
-
-?>
