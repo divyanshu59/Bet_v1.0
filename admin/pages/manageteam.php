@@ -194,9 +194,42 @@ else
                     <!-- end pageheader  -->
                     <!-- ============================================================== -->
                    
-                      <br><br><br><br><br><br><br><br><br>
-                      <br><br><br><br><br><br><br><br><br>
-                      <br><br><br><br><br><br><br><br>
+                    <div class="container1">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Sport</th>
+                                        <th>Status</th>
+                                        <th>Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $sql = "SELECT * FROM `team` ";
+                                    $result = mysqli_query($con, $sql);
+                                    if (mysqli_num_rows($result) > 0) {
+                                        while ($row = mysqli_fetch_array($result)) {
+                                            $status = ($row[4]) ? "Active" : "Disabled";
+                                            echo "
+                                             <tr>
+                                             <td>#$row[0]</td>
+                                             <td>$row[1]</td>
+                                             <td>$row[3]</td>
+                                             <td>$status</td>
+                                             <td><a href='' class='btn btn-info'>Edit</td>
+                                             </tr>
+                                             ";
+                                        }
+                                    }
+
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     
                 </div>
             </div>
