@@ -123,6 +123,10 @@ else
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
                                             <a class="nav-link" href="pages/addtoss.php">Add Toss Game</a>
+                                            <a class="nav-link" href="pages/score.php">Score Gussing</a>
+                                            <a class="nav-link" href="pages/1v1.php">1 Vs 1 Game</a>
+                                            <a class="nav-link" href="pages/2v2.php">2 vs 2 Game</a>
+                                            <a class="nav-link" href="pages/multiplayer.php">Multiplayer Game</a>
                                         </li>
                                     </ul>
                                 </div>

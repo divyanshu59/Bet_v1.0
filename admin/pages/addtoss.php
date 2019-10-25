@@ -3,16 +3,13 @@ require_once '../../assets/import/config.php';
 
 
 
-$login =0;
-if(isset($_COOKIE['Alogin']))
-{
-	$adminemail = $_COOKIE["Aemail"];
+$login = 0;
+if (isset($_COOKIE['Alogin'])) {
+    $adminemail = $_COOKIE["Aemail"];
     $adminname = $_COOKIE["Aname"];
-}
-else
-{
+} else {
     header('Location: login.php');
-	die("Please Wait You are Rediritig..");
+    die("Please Wait You are Rediritig..");
 }
 ?>
 
@@ -126,6 +123,10 @@ else
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
                                             <a class="nav-link" href="addtoss.php">Add Toss Game</a>
+                                            <a class="nav-link" href="score.php">Score Gussing</a>
+                                            <a class="nav-link" href="1v1.php">1 Vs 1 Game</a>
+                                            <a class="nav-link" href="2v2.php">2 vs 2 Game</a>
+                                            <a class="nav-link" href="multiplayer.php">Multiplayer Game</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -234,11 +235,11 @@ else
                             <input type="reset" value="Reset" class="btn btn-danger">
                         </form>
                     </div>
-                    
+
                     <div class="container1" id="result">
-                      <p id="resultText">
-                        <?php
-                            if(isset($_GET['added'])){
+                        <p id="resultText">
+                            <?php
+                            if (isset($_GET['added'])) {
                                 echo "
                                 <script>
                                 document.getElementById('formbox').style.display = 'none';
@@ -247,11 +248,10 @@ else
                                <h3 class='text-success'>Toss Game Added! </h3>
                                 ";
                                 echo '<a href="addtoss.php" class="btn btn-success">Ok</a>';
-                               
                             }
-                        ?>
-                      </p>
-                      </div>
+                            ?>
+                        </p>
+                    </div>
 
                 </div>
             </div>
@@ -312,10 +312,9 @@ if (isset($_POST['submit'])) {
 
     $sql1 = "INSERT INTO `toss`(`sportid`, `sportname`, `teamA`, `teamB`, `percentage`, `totalentry`, `time`, `totalCollected`, `winteam`, `winteamid`, `status`) VALUES 
     ('$sport','$sportname','$teama','$teamb','$percentage',0,'$time',0,'',0,1)";
-    
+
     $queryRun = mysqli_query($con, $sql1);
-    if($queryRun)
-    {
+    if ($queryRun) {
         header('Location: addtoss.php?added=true');
     }
 }

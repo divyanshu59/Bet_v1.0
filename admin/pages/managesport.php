@@ -121,7 +121,11 @@ if (isset($_COOKIE['Alogin'])) {
                                 <div id="submenu-3" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="addtoss.php">Add Toss Game</a>
+                                        <a class="nav-link" href="addtoss.php">Add Toss Game</a>
+                                            <a class="nav-link" href="score.php">Score Gussing</a>
+                                            <a class="nav-link" href="1v1.php">1 Vs 1 Game</a>
+                                            <a class="nav-link" href="2v2.php">2 vs 2 Game</a>
+                                            <a class="nav-link" href="multiplayer.php">Multiplayer Game</a>
                                         </li>
                                     </ul>
                                 </div>
