@@ -230,7 +230,7 @@ if (isset($_COOKIE['Alogin'])) {
                             <label>Date And Time</label>
                             <input class="form-control" type="datetime-local" name="time" min="2019-10-01T00:00">
                             <br>
-                            <input type="submit" name="submit" value="Add Score Guessing" class="btn btn-success">
+                            <input type="submit" name="submit" value="Add Multiplayer " class="btn btn-success">
                             <input type="reset" value="Reset" class="btn btn-danger">
                         </form>
                     </div>
