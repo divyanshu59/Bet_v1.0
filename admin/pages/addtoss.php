@@ -224,11 +224,8 @@ else
                             <select name="teamb" class="form-control" id="SelectTeam2"></select>
 
                             <br>
-                            <label>Betting Cost</label>
-                            <input type="number" class="form-control" name="cost" placeholder="Credits Amount" required>
-                            <br>
-                            <label>Winning Price</label>
-                            <input type="number" class="form-control" name="price" placeholder="Credits Amount" required>
+                            <label>Winning Percentage</label>
+                            <input type="number" class="form-control" name="percentage" placeholder="Credits Amount" required>
                             <br>
                             <label>Date And Time</label>
                             <input class="form-control" type="datetime-local" name="time" min="2019-10-01T00:00">
@@ -302,8 +299,7 @@ if (isset($_POST['submit'])) {
     $sport = $_POST['sport'];
     $teama = $_POST['teama'];
     $teamb = $_POST['teamb'];
-    $cost = $_POST['cost'];
-    $price = $_POST['price'];
+    $percentage = $_POST['percentage'];
     $time = $_POST['time'];
 
     $sql = "SELECT * FROM `sport` WHERE  `id` = '$sport' ";
@@ -314,8 +310,8 @@ if (isset($_POST['submit'])) {
         }
     }
 
-    $sql1 = "INSERT INTO `toss`(`sportid`, `sportname`, `teamA`, `teamB`, `cost`, `price`, `time`, `status`) VALUES 
-    ('$sport','$sportname','$teama','$teamb','$cost','$price','$time',1)";
+    $sql1 = "INSERT INTO `toss`(`sportid`, `sportname`, `teamA`, `teamB`, `percentage`, `totalentry`, `time`, `totalCollected`, `winteam`, `winteamid`, `status`) VALUES 
+    ('$sport','$sportname','$teama','$teamb','$percentage',0,'$time',0,'',0,1)";
     
     $queryRun = mysqli_query($con, $sql1);
     if($queryRun)
