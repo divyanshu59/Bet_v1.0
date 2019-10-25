@@ -226,7 +226,7 @@ if (isset($_COOKIE['Alogin'])) {
 
                             <br>
                             <label>Winning Percentage</label>
-                            <input type="number" class="form-control" name="percentage" placeholder="Credits Amount" required>
+                            <input type="number" class="form-control" name="percentage" placeholder="Percentage" required>
                             <br>
                             <label>Date And Time</label>
                             <input class="form-control" type="datetime-local" name="time" min="2019-10-01T00:00">
