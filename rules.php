@@ -22,7 +22,7 @@ if (mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_array($result);
     $credits = $row[6];
 }
-
+$netExposure = 0;
 
 ?>
 <!DOCTYPE html>
@@ -47,20 +47,21 @@ if (mysqli_num_rows($result) > 0) {
         <div id="menu">
             <div id="items"><a><i class="fa fa-bank" aria-hidden="true"></i> Balance Information
                     <br><br>
-                    Credits: <?php echo $credits ?></a></div>
-                    <div id="items"><a href="openbets.php"><i class="fa fa-list" aria-hidden="true"></i> Open Bets</a></div>
+                    Credits: <?php echo $credits ?>
+                    <br><br>
+                    Net Exposure: <?php echo $netExposure; ?>
+                </a></div>
+            <div id="items"><a href="openbets.php"><i class="fa fa-list" aria-hidden="true"></i> Open Bets</a></div>
             <div id="items"><a href="bettingpnl.php"><i class="fa fa-money" aria-hidden="true"></i> Betting P&L</a></div>
             <div id="items"><a href="transfer.php"><i class="fa fa-book" aria-hidden="true"></i> Transfer Statement</a></div>
-            <div id="items"><a href="timesetting.php"><i class="fa fa-clock-o" aria-hidden="true"></i> Time Setting</a></div>
             <div id="items"><a href="rules.php"><i class="fa fa-ban" aria-hidden="true"></i> Rules & Regulations</a></div>
-            <div id="items"><a href="setting.php"><i class="fa fa-gear" aria-hidden="true"></i> Settings</a></div>
             <div id="items"><a href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></div>
 
 
         </div>
 
         <div id="content">
-            
+
         </div>
     </main>
 

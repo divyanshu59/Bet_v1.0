@@ -19,7 +19,10 @@ if (isset($_GET['id'])) {
 } else {
     header('Location: dashboard.php');
 }
-
+$error = "";
+if(isset($_GET['error'])){
+    $error = $_GET['error'];
+}
 
 $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
 $result = mysqli_query($con, $sql);
@@ -34,6 +37,7 @@ if (mysqli_num_rows($result2) > 0) {
     $row = mysqli_fetch_array($result2);
     $donebetting = 1;
 }
+$netExposure = 0;
 ?>
 <!DOCTYPE html>
 <html>
@@ -57,13 +61,14 @@ if (mysqli_num_rows($result2) > 0) {
         <div id="menu">
             <div id="items"><a><i class="fa fa-bank" aria-hidden="true"></i> Balance Information
                     <br><br>
-                    Credits: <?php echo $credits ?></a></div>
-                    <div id="items"><a href="openbets.php"><i class="fa fa-list" aria-hidden="true"></i> Open Bets</a></div>
+                    Credits: <?php echo $credits ?>
+                    <br><br>
+                    Net Exposure: <?php echo $netExposure; ?>
+                </a></div>
+            <div id="items"><a href="openbets.php"><i class="fa fa-list" aria-hidden="true"></i> Open Bets</a></div>
             <div id="items"><a href="bettingpnl.php"><i class="fa fa-money" aria-hidden="true"></i> Betting P&L</a></div>
             <div id="items"><a href="transfer.php"><i class="fa fa-book" aria-hidden="true"></i> Transfer Statement</a></div>
-            <div id="items"><a href="timesetting.php"><i class="fa fa-clock-o" aria-hidden="true"></i> Time Setting</a></div>
             <div id="items"><a href="rules.php"><i class="fa fa-ban" aria-hidden="true"></i> Rules & Regulations</a></div>
-            <div id="items"><a href="setting.php"><i class="fa fa-gear" aria-hidden="true"></i> Settings</a></div>
             <div id="items"><a href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></div>
 
 
@@ -94,7 +99,16 @@ if (mysqli_num_rows($result2) > 0) {
                             <h3>Place Your Bet </h3>";
                     if ($donebetting == 1) {
                         echo "<h4 style='color: #f00;'>You have Already Done Betting</h4>";
-                    } else {
+                    }
+                    elseif($error == 'true')
+                    {
+                        echo "<h4 style='color: #f00;'>You dont have Enough Credits</h4>";
+                    }
+                    elseif($credits<$row[5])
+                    {
+                        echo "<h4 style='color: #f00;'>You dont have Enough Credits <br> Credits Required $row[5]</h4>";
+                    }
+                    else {
                         echo "<form action='showtoss.php' id='betform' method='post'>
                                 <select name='team' id=''>
                                     <option value='$row[3]'>$row[3]</option>
@@ -112,9 +126,7 @@ if (mysqli_num_rows($result2) > 0) {
 
                             </div>
                             ";
-                }
-                else
-                {
+                } else {
                     echo "<center style='color: red;'>Toss Game Expired</center>";
                 }
                 ?>
@@ -140,17 +152,20 @@ if (isset($_POST['betme'])) {
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_array($result);
         $credits = $row[6];
-        $credits = $credits - $amount;
+        if ($credits > $amount) {
+            $credits = $credits - $amount;
+            $sql2 = "UPDATE `users` SET `credits`='$credits' WHERE `username` = '$username' ";
+            $result2 = mysqli_query($con, $sql2);
 
-        $sql2 = "UPDATE `users` SET `credits`='$credits' WHERE `username` = '$username' ";
-        $result2 = mysqli_query($con, $sql2);
-
-        $sql3 = "INSERT INTO `tossbet`( `username`, `tossid`, `team`, `amount`, `status`) 
+            $sql3 = "INSERT INTO `tossbet`( `username`, `tossid`, `team`, `amount`, `status`) 
         VALUES ('$username','$tossid','$team','$amount', 1)";
-        $result3 = mysqli_query($con, $sql3);
+            $result3 = mysqli_query($con, $sql3);
 
-        if ($result3)
-            header('Location: dashboard.php');
+            if ($result3)
+                header('Location: dashboard.php');
+        } else { 
+            header('Location: dashboard.php?error=true');
+        }
     }
 }
 ?>
