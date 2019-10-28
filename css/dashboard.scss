@@ -136,6 +136,7 @@ main{
           color: papayawhip;
         }
         
+        
       }
     }
   }
@@ -159,6 +160,24 @@ main{
       margin-top: 5px;
       padding: 5px;
       width: 100%;
+    }
+  }
+  div#joinview{
+    display: flex;
+      div#joincard{
+      margin: 10px;
+      border: 1px solid grey;
+      border-radius: 25px;
+      width: 230px;
+      padding: 25px; 
+      a#joinbtn{
+        background: #0f0;
+        color: #fff;
+        border-radius: 20px;
+        border: none;
+        text-decoration: none;
+        padding: 10px;
+      }   
     }
   }
   }

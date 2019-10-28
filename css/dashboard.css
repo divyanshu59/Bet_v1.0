@@ -190,4 +190,27 @@ main div#box #betform input#text {
   padding: 5px;
   width: 100%;
 }
+
+main div#box div#joinview {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+main div#box div#joinview div#joincard {
+  margin: 10px;
+  border: 1px solid grey;
+  border-radius: 25px;
+  width: 230px;
+  padding: 25px;
+}
+
+main div#box div#joinview div#joincard a#joinbtn {
+  background: #0f0;
+  color: #fff;
+  border-radius: 20px;
+  border: none;
+  text-decoration: none;
+  padding: 10px;
+}
 /*# sourceMappingURL=dashboard.css.map */
