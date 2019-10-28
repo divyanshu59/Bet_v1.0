@@ -31,7 +31,7 @@ if (mysqli_num_rows($result) > 0) {
     $credits = $row[6];
 }
 
-$sql2 = "SELECT * FROM `1v1bet` WHERE `username` = '$username' and `tossid` = '$id' ";
+$sql2 = "SELECT * FROM `2v2bet` WHERE `username` = '$username' and `tossid` = '$id' ";
 $result2 = mysqli_query($con, $sql2);
 if (mysqli_num_rows($result2) > 0) {
     $row2 = mysqli_fetch_array($result2);
@@ -82,7 +82,7 @@ $netExposure = 0;
                 <h2>Betting</h2>
                 <hr>
                 <?php
-                $sql = "SELECT * FROM `1v1` WHERE `status` = 1 and `time` > now() and `id` = '$id' ";
+                $sql = "SELECT * FROM `2v2` WHERE `status` = 1 and `time` > now() and `id` = '$id' ";
                 $result = mysqli_query($con, $sql);
                 if (mysqli_num_rows($result) > 0) {
                     $row = mysqli_fetch_array($result);
@@ -109,7 +109,7 @@ $netExposure = 0;
                         echo "
                             <h3>Join A Room</h3>
                             <div id='joinview'>";
-                        $sql12 = "SELECT * FROM `room` WHERE `gameid` = '$id' and `bettype` = 1 and joined < totalperson ";
+                        $sql12 = "SELECT * FROM `room` WHERE `gameid` = '$id' and `bettype` = 2 and joined < totalperson ";
                         $result12 = mysqli_query($con, $sql12);
                         if (mysqli_num_rows($result12) > 0) {
                             while ($row12 = mysqli_fetch_array($result12)) {
@@ -121,7 +121,7 @@ $netExposure = 0;
                                         <br>
                                         <br>
                                        
-                                        <a href='joinroom.php?id=$row12[0]' id='joinbtn' >Join This Room</a>
+                                        <a href='joinroom2.php?id=$row12[0]' id='joinbtn' >Join This Room</a>
                                     </div>
                                     ";
                             }
@@ -130,7 +130,7 @@ $netExposure = 0;
                         }
 
                         echo "</div><h3>Place Your Custom Bet </h3>";
-                        echo "<form action='show1v1.php' id='betform' method='post'>
+                        echo "<form action='show2v2.php' id='betform' method='post'>
                                 <label> Select Team </label>
                                 <select name='team' id=''>
                                     <option value='$row[3]'>$row[3]</option>
@@ -152,7 +152,7 @@ $netExposure = 0;
                             </div>
                             ";
                 } else {
-                    echo "<center style='color: red;'>1v1 Game Expired</center>";
+                    echo "<center style='color: red;'>2v2 Game Expired</center>";
                 }
                 ?>
 
@@ -187,28 +187,28 @@ if (isset($_POST['betme'])) {
 
             $roomid = rand(1, 99999);
             $sql10 = "INSERT INTO `room`(`id`,`bettype`, `totalperson`, `gameid`, `personuname`,`amount`,`joined`, `team`,`percentage`, `status`) 
-            VALUES ($roomid,1,2,$tossid,'$username','$amount',1,'$team','$percentage',1)";
+            VALUES ($roomid,2,4,$tossid,'$username','$amount',1,'$team','$percentage',1)";
             $result10 = mysqli_query($con, $sql10);
 
-            $sql3 = "INSERT INTO `1v1bet`(  `roomid`, `username`, `tossid`, `team`, `amount`, `anoutwin`, `status`) 
+            $sql3 = "INSERT INTO `2v2bet`(  `roomid`, `username`, `tossid`, `team`, `amount`, `anoutwin`, `status`) 
             VALUES ('$roomid','$username','$tossid','$team','$amount','$amountwin', 1)";
             $result3 = mysqli_query($con, $sql3);
 
-            $sql5 = "SELECT * FROM `1v1` WHERE `id` = '$tossid' ";
+            $sql5 = "SELECT * FROM `2v2` WHERE `id` = '$tossid' ";
             $result5 = mysqli_query($con, $sql5);
             if (mysqli_num_rows($result5) > 0) {
                 $row2 = mysqli_fetch_array($result5);
                 $totalentry = $row2[6] + 1;
                 $totalcollected = $row2[8] + $amount;
 
-                $sql4 = "UPDATE `1v1` SET `totalentry`=$totalentry,`totalCollected`=$totalcollected WHERE `id` = $tossid ";
+                $sql4 = "UPDATE `2v2` SET `totalentry`=$totalentry,`totalCollected`=$totalcollected WHERE `id` = $tossid ";
                 $result4 = mysqli_query($con, $sql4);
             }
 
             if ($result3)
                 header('Location: dashboard.php');
         } else {
-            header("Location: show1v1.php?id=$tossid&error=true");
+            header("Location: show2v2.php?id=$tossid&error=true");
         }
     }
 }
