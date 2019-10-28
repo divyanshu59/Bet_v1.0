@@ -145,7 +145,7 @@ main{
       padding: 10px;
       border: 1px solid blue; 
     }
-    input{
+    input#btn{
       margin-top: 20px;
       padding: 5px;
       width: 100%;
@@ -154,6 +154,11 @@ main{
       border: none;
       border-radius: 25px;
       font-size: 25px;
+    }
+    input#text{
+      margin-top: 5px;
+      padding: 5px;
+      width: 100%;
     }
   }
   }

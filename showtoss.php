@@ -34,9 +34,12 @@ if (mysqli_num_rows($result) > 0) {
 $sql2 = "SELECT * FROM `tossbet` WHERE `username` = '$username' and `tossid` = '$id' ";
 $result2 = mysqli_query($con, $sql2);
 if (mysqli_num_rows($result2) > 0) {
-    $row = mysqli_fetch_array($result2);
+    $row2 = mysqli_fetch_array($result2);
     $donebetting = 1;
 }
+
+
+
 $netExposure = 0;
 ?>
 <!DOCTYPE html>
@@ -83,7 +86,7 @@ $netExposure = 0;
                 $result = mysqli_query($con, $sql);
                 if (mysqli_num_rows($result) > 0) {
                     $row = mysqli_fetch_array($result);
-
+                    $totalP = 100 + $row[5];
                     echo "
                             <div id='card1'>
                             #$row[0]
@@ -93,33 +96,34 @@ $netExposure = 0;
                             <br>
                             <li>Team 2: $row[4]</li>
                             <br>
-                            <span style='color: green'>Price: $row[6]</span>
+                            <span style='color: green'>Winner Will Get: $totalP%</span>
                             <br>
                             <br>
                             <h3>Place Your Bet </h3>";
                     if ($donebetting == 1) {
-                        echo "<h4 style='color: #f00;'>You have Already Done Betting</h4>";
+                        echo "<h4 style='color: #f00;'>You have Already Done Betting For this Toss Bet.</h4>";
                     }
                     elseif($error == 'true')
                     {
-                        echo "<h4 style='color: #f00;'>You dont have Enough Credits</h4>";
-                    }
-                    elseif($credits<$row[5])
-                    {
-                        echo "<h4 style='color: #f00;'>You dont have Enough Credits <br> Credits Required $row[5]</h4>";
+                        echo "<h4 style='color: #f00;'>You dont have Enough Credits to bet</h4>";
+                        echo "<a href='showtoss.php?id=$id'>Bet Another Amount</a>";
                     }
                     else {
                         echo "<form action='showtoss.php' id='betform' method='post'>
+                                <label> Select Team </label>
                                 <select name='team' id=''>
                                     <option value='$row[3]'>$row[3]</option>
                                     <option value='$row[4]'>$row[4]</option>
                                 </select>
                                 <br>
+                                <br>
+                                <label>Enter Credits Amount</label>
+                                <input type='number' id='text' name='amount'>
+                                <br>
                                 <input type='hidden' value='$username' name='username' >
                                 <input type='hidden' value='$row[0]' name='tossid' >
-                                <input type='hidden' value='$row[5]' name='amount' >
-                               
-                                <input type='submit' name='betme' value='Pay $row[5] Credits'>
+                                <input type='hidden' value='$row[5]' name='percentage' >
+                                <input type='submit' id='btn' name='betme' value='Pay Credits'>
                             </form>";
                     }
                     echo "
@@ -146,6 +150,7 @@ if (isset($_POST['betme'])) {
     $username = $_POST['username'];
     $tossid = $_POST['tossid'];
     $amount = $_POST['amount'];
+    $percentage = $_POST['percentage'];
 
     $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
     $result = mysqli_query($con, $sql);
@@ -154,17 +159,19 @@ if (isset($_POST['betme'])) {
         $credits = $row[6];
         if ($credits > $amount) {
             $credits = $credits - $amount;
+
+            $amountwin = $amount + ($amount*$percentage)/100;
             $sql2 = "UPDATE `users` SET `credits`='$credits' WHERE `username` = '$username' ";
             $result2 = mysqli_query($con, $sql2);
 
-            $sql3 = "INSERT INTO `tossbet`( `username`, `tossid`, `team`, `amount`, `status`) 
-        VALUES ('$username','$tossid','$team','$amount', 1)";
+            $sql3 = "INSERT INTO `tossbet`(  `username`, `tossid`, `team`, `amount`, `anoutwin`, `status`) 
+        VALUES ('$username','$tossid','$team','$amount','$amountwin', 1)";
             $result3 = mysqli_query($con, $sql3);
 
             if ($result3)
                 header('Location: dashboard.php');
         } else { 
-            header('Location: dashboard.php?error=true');
+            header("Location: showtoss.php?id=$tossid&error=true");
         }
     }
 }

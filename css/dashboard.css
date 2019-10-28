@@ -174,7 +174,7 @@ main div#box #betform select {
   border: 1px solid blue;
 }
 
-main div#box #betform input {
+main div#box #betform input#btn {
   margin-top: 20px;
   padding: 5px;
   width: 100%;
@@ -183,5 +183,11 @@ main div#box #betform input {
   border: none;
   border-radius: 25px;
   font-size: 25px;
+}
+
+main div#box #betform input#text {
+  margin-top: 5px;
+  padding: 5px;
+  width: 100%;
 }
 /*# sourceMappingURL=dashboard.css.map */
