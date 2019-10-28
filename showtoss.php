@@ -20,7 +20,7 @@ if (isset($_GET['id'])) {
     header('Location: dashboard.php');
 }
 $error = "";
-if(isset($_GET['error'])){
+if (isset($_GET['error'])) {
     $error = $_GET['error'];
 }
 
@@ -102,13 +102,10 @@ $netExposure = 0;
                             <h3>Place Your Bet </h3>";
                     if ($donebetting == 1) {
                         echo "<h4 style='color: #f00;'>You have Already Done Betting For this Toss Bet.</h4>";
-                    }
-                    elseif($error == 'true')
-                    {
+                    } elseif ($error == 'true') {
                         echo "<h4 style='color: #f00;'>You dont have Enough Credits to bet</h4>";
                         echo "<a href='showtoss.php?id=$id'>Bet Another Amount</a>";
-                    }
-                    else {
+                    } else {
                         echo "<form action='showtoss.php' id='betform' method='post'>
                                 <label> Select Team </label>
                                 <select name='team' id=''>
@@ -160,7 +157,7 @@ if (isset($_POST['betme'])) {
         if ($credits > $amount) {
             $credits = $credits - $amount;
 
-            $amountwin = $amount + ($amount*$percentage)/100;
+            $amountwin = $amount + ($amount * $percentage) / 100;
             $sql2 = "UPDATE `users` SET `credits`='$credits' WHERE `username` = '$username' ";
             $result2 = mysqli_query($con, $sql2);
 
@@ -168,9 +165,19 @@ if (isset($_POST['betme'])) {
         VALUES ('$username','$tossid','$team','$amount','$amountwin', 1)";
             $result3 = mysqli_query($con, $sql3);
 
+            $sql5 = "SELECT * FROM `toss` WHERE `id` = '$tossid' ";
+            $result5 = mysqli_query($con, $sql5);
+            if (mysqli_num_rows($result5) > 0) {
+                $row2 = mysqli_fetch_array($result5);
+                $totalentry = $row2[6] + 1;
+                $totalcollected = $row2[8] + $amount;
+
+                $sql4 = "UPDATE `toss` SET `totalentry`=$totalentry,`totalCollected`=$totalcollected WHERE `id` = $tossid ";
+                $result4 = mysqli_query($con, $sql4);
+            }
             if ($result3)
                 header('Location: dashboard.php');
-        } else { 
+        } else {
             header("Location: showtoss.php?id=$tossid&error=true");
         }
     }

@@ -20,7 +20,7 @@ if (isset($_GET['id'])) {
     header('Location: dashboard.php');
 }
 $error = "";
-if(isset($_GET['error'])){
+if (isset($_GET['error'])) {
     $error = $_GET['error'];
 }
 
@@ -31,7 +31,7 @@ if (mysqli_num_rows($result) > 0) {
     $credits = $row[6];
 }
 
-$sql2 = "SELECT * FROM `multiplayerbet` WHERE `username` = '$username' and `tossid` = '$id' ";
+$sql2 = "SELECT * FROM `scorebet` WHERE `username` = '$username' and `tossid` = '$id' ";
 $result2 = mysqli_query($con, $sql2);
 if (mysqli_num_rows($result2) > 0) {
     $row2 = mysqli_fetch_array($result2);
@@ -101,15 +101,12 @@ $netExposure = 0;
                             <br>
                             <h3>Place Your Bet </h3>";
                     if ($donebetting == 1) {
-                        echo "<h4 style='color: #f00;'>You have Already Done Betting For this Multiplayer Bet.</h4>";
-                    }
-                    elseif($error == 'true')
-                    {
+                        echo "<h4 style='color: #f00;'>You have Already Done Betting For this Score Bet.</h4>";
+                    } elseif ($error == 'true') {
                         echo "<h4 style='color: #f00;'>You dont have Enough Credits to bet</h4>";
-                        echo "<a href='showmultiplayer.php?id=$id'>Bet Another Amount</a>";
-                    }
-                    else {
-                        echo "<form action='showmultiplayer.php' id='betform' method='post'>
+                        echo "<a href='showscore.php?id=$id'>Bet Another Amount</a>";
+                    } else {
+                        echo "<form action='showscore.php' id='betform' method='post'>
                                 <label> Select Team </label>
                                 <select name='team' id=''>
                                     <option value='$row[3]'>$row[3]</option>
@@ -117,6 +114,9 @@ $netExposure = 0;
                                 </select>
                                 <br>
                                 <br>
+                                <label>Enter Scoure</label>
+                                <input type='number' id='text' name='score'>
+                                <br><br>
                                 <label>Enter Credits Amount</label>
                                 <input type='number' id='text' name='amount'>
                                 <br>
@@ -131,7 +131,7 @@ $netExposure = 0;
                             </div>
                             ";
                 } else {
-                    echo "<center style='color: red;'>Multiplayer Game Expired</center>";
+                    echo "<center style='color: red;'>Score Game Expired</center>";
                 }
                 ?>
 
@@ -151,6 +151,7 @@ if (isset($_POST['betme'])) {
     $tossid = $_POST['tossid'];
     $amount = $_POST['amount'];
     $percentage = $_POST['percentage'];
+    $score = $_POST['score'];
 
     $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
     $result = mysqli_query($con, $sql);
@@ -160,29 +161,29 @@ if (isset($_POST['betme'])) {
         if ($credits > $amount) {
             $credits = $credits - $amount;
 
-            $amountwin = $amount + ($amount*$percentage)/100;
+            $amountwin = $amount + ($amount * $percentage) / 100;
             $sql2 = "UPDATE `users` SET `credits`='$credits' WHERE `username` = '$username' ";
             $result2 = mysqli_query($con, $sql2);
 
-            $sql3 = "INSERT INTO `multiplayerbet`(  `username`, `tossid`, `team`, `amount`, `anoutwin`, `status`) 
-        VALUES ('$username','$tossid','$team','$amount','$amountwin', 1)";
+            $sql3 = "INSERT INTO `scorebet`(`username`, `tossid`, `team`, `score`, `amount`, `anoutwin`, `status`) 
+        VALUES ('$username','$tossid','$team','$score','$amount','$amountwin', 1)";
             $result3 = mysqli_query($con, $sql3);
 
-            $sql5 = "SELECT * FROM `multiplayer` WHERE `id` = '$tossid' ";
+            $sql5 = "SELECT * FROM `score` WHERE `id` = '$tossid' ";
             $result5 = mysqli_query($con, $sql5);
             if (mysqli_num_rows($result5) > 0) {
                 $row2 = mysqli_fetch_array($result5);
                 $totalentry = $row2[6] + 1;
                 $totalcollected = $row2[8] + $amount;
 
-                $sql4 = "UPDATE `multiplayer` SET `totalentry`=$totalentry,`totalCollected`=$totalcollected WHERE `id` = $tossid ";
+                $sql4 = "UPDATE `score` SET `totalentry`=$totalentry,`totalCollected`=$totalcollected WHERE `id` = $tossid ";
                 $result4 = mysqli_query($con, $sql4);
             }
-
-            if ($result3)
-                header('Location: dashboard.php');
-        } else { 
-            header("Location: showmultiplayer.php?id=$tossid&error=true");
+            if ($result3) {
+               // header('Location: dashboard.php');
+            }
+        } else {
+            header("Location: showscore.php?id=$tossid&error=true");
         }
     }
 }
