@@ -61,7 +61,50 @@ $netExposure = exposer($con, $username);
         </div>
 
         <div id="content">
+            <div id="box">
+                <h2>Withdrawal Amount</h2>
 
+                <form action="transfer.php" method="post">
+                    <label>Enter Amount To Withdrawal</label>
+                    <input type="number" name='amount' placeholder="Enter Amount" required>
+                    <input type="hidden" name='username' value="<?php echo $username; ?>" required>
+                    <input type="submit" name='submit' value="Withdrawal Now" style="border: none; background: #15b03e; color: #fff; padding: 5px;">
+                </form>
+                <?php
+                if (isset($_GET['error'])) {
+                    echo "<span style='color: red;'>Withdrawal Amount Must be less than Credits in Your Account</span>";
+                }
+                ?>
+                <h2>Recent Transaction</h2>
+                <?php
+                $sql = "SELECT * FROM `withdrawal` WHERE `username` = '$username' ";
+                $result = mysqli_query($con, $sql);
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_array($result)) {
+                        echo "
+                        <div style='padding: 10px; margin: 10px; background: #e3e3e3; border-radius: 10px;'>
+                        ID: #$row[0] 
+                        <br>
+                        <br>
+                        <p style='color: red;'> Amount: $row[2]</p>
+                        <p style='color: green;'> Time: $row[3]</p>
+                        ";
+                        if ($row[4] == 0) {
+                            echo "<span style='color: yellow;'>Pending</span>";
+                        } elseif ($row[4] == -1) {
+                            echo "<span style='color: red;'>Transaction Failed</span>";
+                        } elseif ($row[4] == 1) {
+                            echo "<span style='color: green;'>Transaction Completed</span>";
+                        }
+                        echo "</div>";
+                    }
+                } else {
+                    echo "No Recent Transaction";
+                }
+
+
+                ?>
+            </div>
         </div>
     </main>
 
@@ -69,3 +112,29 @@ $netExposure = exposer($con, $username);
 </body>
 
 </html>
+
+<?php
+if (isset($_POST['submit'])) {
+    $amount  = $_POST['amount'];
+    $username  = $_POST['username'];
+
+    $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_array($result);
+        $credits = $row[6];
+        if ($credits > $amount) {
+            $credits = $credits - $amount;
+            $sql2 = "UPDATE `users` SET `credits`='$credits' WHERE `username` = '$username' ";
+            $result2 = mysqli_query($con, $sql2);
+
+            $sql = "INSERT INTO `withdrawal`(`username`, `amount`, `time`, `status`) 
+                VALUES ('$username','$amount',NOW(), 0)";
+            $result = mysqli_query($con, $sql);
+            header('Location: transfer.php');
+        } else {
+            header('Location: transfer.php?error=true');
+        }
+    }
+}
+?>
