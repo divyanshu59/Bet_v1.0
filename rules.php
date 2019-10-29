@@ -61,7 +61,17 @@ $netExposure = exposer($con, $username);
         </div>
 
         <div id="content">
-
+            <div id="box">
+                <?php
+                $sql = "SELECT * FROM `rule` ";
+                $result = mysqli_query($con, $sql);
+                if (mysqli_num_rows($result) > 0) {
+                    $row = mysqli_fetch_array($result);
+                    echo $row[1]
+                }
+                
+                ?>
+            </div>
         </div>
     </main>
 
