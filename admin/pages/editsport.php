@@ -128,7 +128,7 @@ if (isset($_GET['id'])) {
                                 <div id="submenu-3" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                        <a class="nav-link" href="addtoss.php">Add Toss Game</a>
+                                            <a class="nav-link" href="addtoss.php">Add Toss Game</a>
                                             <a class="nav-link" href="score.php">Score Gussing</a>
                                             <a class="nav-link" href="1v1.php">1 Vs 1 Game</a>
                                             <a class="nav-link" href="2v2.php">2 vs 2 Game</a>
@@ -166,7 +166,12 @@ if (isset($_GET['id'])) {
                                     </ul>
                                 </div>
                             </li>
-
+                            <li class="nav-item">
+                                <a class="nav-link" href="rules.php"><i class="fa fa-gavel"></i>Rules</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="wallet.php"><i class="fa fa-google-wallet"></i>Withdrawal</a>
+                            </li>
                         </ul>
                     </div>
                 </nav>
@@ -279,7 +284,7 @@ if (isset($_GET['id'])) {
 </body>
 
 </html>
-<?php 
+<?php
 if (isset($_POST['submit'])) {
     # code...
     $id = $_POST['id'];
@@ -289,8 +294,7 @@ if (isset($_POST['submit'])) {
 
     $sql = "UPDATE `sport` SET `name`='$name',`type`='$type',`status`='$status' WHERE `id` = '$id' ";
     $queryRun = mysqli_query($con, $sql);
-    if($queryRun)
-    {
+    if ($queryRun) {
         header('Location: managesport.php');
     }
 }

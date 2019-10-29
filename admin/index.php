@@ -160,6 +160,12 @@ else
                                     </ul>
                                 </div>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="pages/rules.php" ><i class="fa fa-gavel"></i>Rules</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="pages/wallet.php" ><i class="fa fa-google-wallet"></i>Withdrawal</a>
+                            </li>
                             
                         </ul>
                     </div>

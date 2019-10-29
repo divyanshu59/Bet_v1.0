@@ -164,7 +164,12 @@ if (isset($_GET['delete'])) {
                                     </ul>
                                 </div>
                             </li>
-
+                            <li class="nav-item">
+                                <a class="nav-link" href="rules.php" ><i class="fa fa-gavel"></i>Rules</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="wallet.php" ><i class="fa fa-google-wallet"></i>Withdrawal</a>
+                            </li>
                         </ul>
                     </div>
                 </nav>
