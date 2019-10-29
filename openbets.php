@@ -23,7 +23,7 @@ if (mysqli_num_rows($result) > 0) {
     $credits = $row[6];
 }
 
-$netExposure = 0;
+$netExposure = exposer($con, $username);
 ?>
 <!DOCTYPE html>
 <html>
@@ -61,7 +61,123 @@ $netExposure = 0;
         </div>
 
         <div id="content">
+            <div id="box">
+                <h2>Open Bets</h2>
+                <hr>
+                <p><b>1 Vs 1 Betting</b></p>
+                <?php
+                 $sql = "SELECT * FROM `1v1bet` WHERE `username` = '$username' and `status` = 1 ";
+                 $result = mysqli_query($con, $sql);
+                 if (mysqli_num_rows($result) > 0) {
+                     while($row = mysqli_fetch_array($result)){
+                         echo "
+                         <div style='padding: 10px; margin: 10px; background: #e3e3e3; border-radius: 10px;'>
+                         ID: #$row[0] &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; RoomID: #$row[1]
+                         <br>
+                         <br>
+                         <span style='font-size: 25px;'>Team : $row[4]</span>
+                         <p style='color: red;'> Amount: $row[5]</p>
+                         <p style='color: green;'> Winning Prize: $row[6]</p>
+                         </div>
+                         ";
+                     }
+                 }
+                 else{
+                     echo "No Bets Available";
+                 }
+                ?>
+                <p><b>2 Vs 2 Betting</b></p>
+                <?php
+                 $sql = "SELECT * FROM `2v2bet` WHERE `username` = '$username' and `status` = 1 ";
+                 $result = mysqli_query($con, $sql);
+                 if (mysqli_num_rows($result) > 0) {
+                     while($row = mysqli_fetch_array($result)){
+                         echo "
+                         <div style='padding: 10px; margin: 10px; background: #e3e3e3; border-radius: 10px;'>
+                         ID: #$row[0] &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; RoomID: #$row[1]
+                         <br>
+                         <br>
+                         <span style='font-size: 25px;'>Team : $row[4]</span>
+                         <p style='color: red;'> Amount: $row[5]</p>
+                         <p style='color: green;'> Winning Prize: $row[6]</p>
+                         </div>
+                         ";
+                     }
+                 }
+                 else{
+                    echo "No Bets Available";
+                }
+                ?>
+                <p><b>Multiplayer Betting</b></p>
+                <?php
+                 $sql = "SELECT * FROM `multiplayerbet` WHERE `username` = '$username' and `status` = 1 ";
+                 $result = mysqli_query($con, $sql);
+                 if (mysqli_num_rows($result) > 0) {
+                     while($row = mysqli_fetch_array($result)){
+                         echo "
+                         <div style='padding: 10px; margin: 10px; background: #e3e3e3; border-radius: 10px;'>
+                         ID: #$row[0]
+                         <br>
+                         <br>
+                         <span style='font-size: 25px;'>Team : $row[3]</span>
+                         <p style='color: red;'> Amount: $row[4]</p>
+                         <p style='color: green;'> Winning Prize: $row[5]</p>
+                         </div>
+                         ";
+                     }
+                 }
+                 else{
+                    echo "No Bets Available";
+                }
+                ?>
+                <p><b>Score Betting</b></p>
+                <?php
+                 $sql = "SELECT * FROM `scorebet` WHERE `username` = '$username' and `status` = 1 ";
+                 $result = mysqli_query($con, $sql);
+                 if (mysqli_num_rows($result) > 0) {
+                     while($row = mysqli_fetch_array($result)){
+                         echo "
+                         <div style='padding: 10px; margin: 10px; background: #e3e3e3; border-radius: 10px;'>
+                         ID: #$row[0]
+                         <br>
+                         <br>
+                         <span style='font-size: 25px;'>Team : $row[3]</span>
+                         <p>You Bet For Score @$row[4]</p>
+                         <p style='color: red;'> Amount: $row[5]</p>
+                         <p style='color: green;'> Winning Prize: $row[6]</p>
+                         </div>
+                         ";
+                     }
+                 }
+                 else{
+                    echo "No Bets Available";
+                }
+                ?>
+                <p><b>Toss Betting</b></p>
+                <?php
+                 $sql = "SELECT * FROM `tossbet` WHERE `username` = '$username' and `status` = 1 ";
+                 $result = mysqli_query($con, $sql);
+                 if (mysqli_num_rows($result) > 0) {
+                     while($row = mysqli_fetch_array($result)){
+                         echo "
+                         <div style='padding: 10px; margin: 10px; background: #e3e3e3; border-radius: 10px;'>
+                         ID: #$row[0]
+                         <br>
+                         <br>
+                         <span style='font-size: 25px;'>Team : $row[3]</span>
+                         <p style='color: red;'> Amount: $row[4]</p>
+                         <p style='color: green;'> Winning Prize: $row[5]</p>
+                         </div>
+                         ";
+                     }
+                 }
+                 else{
+                    echo "No Bets Available";
+                }
+                ?>
 
+
+            </div>
         </div>
     </main>
 

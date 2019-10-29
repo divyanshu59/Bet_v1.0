@@ -21,4 +21,48 @@ $SiteName = "Bet World";
 $TagLine1 = "Your Personal Assistant";
 $TagLine2 = "Get Help With Your Daily Life Stuff.";
 
+
+function exposer($con,$username){
+    $returnVal = 0; 
+
+    $sql = "SELECT * FROM `1v1bet` WHERE `username` = '$username' and `status` = 1 ";
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_array($result)){
+            $returnVal += $row[5];
+        }
+    }
+    $sql = "SELECT * FROM `2v2bet` WHERE `username` = '$username' and `status` = 1 ";
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_array($result)){
+            $returnVal += $row[5];
+        }
+    }
+    $sql = "SELECT * FROM `multiplayerbet` WHERE `username` = '$username' and `status` = 1 ";
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_array($result)){
+            $returnVal += $row[4];
+        }
+    }
+    $sql = "SELECT * FROM `scorebet` WHERE `username` = '$username' and `status` = 1 ";
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_array($result)){
+            $returnVal += $row[5];
+        }
+    }
+    $sql = "SELECT * FROM `tossbet` WHERE `username` = '$username' and `status` = 1 ";
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_array($result)){
+            $returnVal += $row[4];
+        }
+    }
+
+
+
+    return $returnVal;
+}
 ?>

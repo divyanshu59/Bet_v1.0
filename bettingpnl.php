@@ -23,7 +23,7 @@ if (mysqli_num_rows($result) > 0) {
     $credits = $row[6];
 }
 
-$netExposure = 0;
+$netExposure = exposer($con, $username);
 ?>
 <!DOCTYPE html>
 <html>

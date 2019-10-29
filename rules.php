@@ -22,7 +22,7 @@ if (mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_array($result);
     $credits = $row[6];
 }
-$netExposure = 0;
+$netExposure = exposer($con, $username);
 
 ?>
 <!DOCTYPE html>

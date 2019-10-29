@@ -40,7 +40,7 @@ if (mysqli_num_rows($result2) > 0) {
 
 
 
-$netExposure = 0;
+$netExposure = exposer($con, $username);
 ?>
 <!DOCTYPE html>
 <html>

@@ -21,7 +21,7 @@ $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
         $credits = $row[6];
     }
 
-    $netExposure = 0;
+    $netExposure = exposer($con, $username);
 ?>
 <!DOCTYPE html>
 <html>
