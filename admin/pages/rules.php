@@ -1,23 +1,21 @@
-<?php 
+<?php
 require_once '../../assets/import/config.php';
 
 
-$login =0;
-if(isset($_COOKIE['Alogin']))
-{
-	$adminemail = $_COOKIE["Aemail"];
+
+$login = 0;
+if (isset($_COOKIE['Alogin'])) {
+    $adminemail = $_COOKIE["Aemail"];
     $adminname = $_COOKIE["Aname"];
-}
-else
-{
+} else {
     header('Location: login.php');
-	die("Please Wait You are Rediritig..");
+    die("Please Wait You are Rediritig..");
 }
 ?>
 
 <!doctype html>
 <html lang="en">
- 
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -32,6 +30,7 @@ else
     <link rel="stylesheet" href="../assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../assets/vendor/charts/c3charts/c3.css">
     <link rel="stylesheet" href="../assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.3.0/classic/ckeditor.js"></script>
     <title><?php echo $SiteName; ?> Admin Dashboard </title>
 </head>
 
@@ -45,13 +44,13 @@ else
         <!-- ============================================================== -->
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
-                <a class="navbar-brand" href="../index.php"><?php echo $SiteName; ?></a>
+                <a class="navbar-brand" href="../index.php`"><?php echo $SiteName; ?></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto navbar-right-top">
-                        
+
                         <li class="nav-item dropdown notification">
                             <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span class="indicator"></span></a>
                             <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
@@ -59,7 +58,9 @@ else
                                     <div class="notification-title"> Notification</div>
                                     <div class="notification-list">
                                         <div class="list-group">
-                                            <center><p>No Notifications</p></center>
+                                            <center>
+                                                <p>No Notifications</p>
+                                            </center>
                                         </div>
                                     </div>
                                 </li>
@@ -68,12 +69,12 @@ else
                                 </li>
                             </ul>
                         </li>
-                       
+
                         <li class="nav-item dropdown nav-user">
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../assets/images/avatar-1.jpg" alt="" class="user-avatar-md rounded-circle"></a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
-                                    <h5 class="mb-0 text-white nav-user-name"><?php echo $adminname ?>  </h5>
+                                    <h5 class="mb-0 text-white nav-user-name"><?php echo $adminname ?> </h5>
                                     <span class="status"></span><span class="ml-2">Available</span>
                                 </div>
                                 <span class="dropdown-item" href="#"><?php echo $adminemail ?></span>
@@ -103,8 +104,8 @@ else
                                 Menu
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " href="../index.php" ><i class="fa fa-fw fa-user-circle"></i>Dashboard </a>
-                                
+                                <a class="nav-link" href="../index.php"><i class="fa fa-fw fa-user-circle"></i>Dashboard </a>
+
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>Users</a>
@@ -122,7 +123,7 @@ else
                                 <div id="submenu-3" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                        <a class="nav-link" href="addtoss.php">Add Toss Game</a>
+                                            <a class="nav-link" href="addtoss.php">Add Toss Game</a>
                                             <a class="nav-link" href="score.php">Score Gussing</a>
                                             <a class="nav-link" href="1v1.php">1 Vs 1 Game</a>
                                             <a class="nav-link" href="2v2.php">2 vs 2 Game</a>
@@ -152,15 +153,15 @@ else
                                 <div id="submenu-7" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="addteam.php">Add Team</a>
+                                            <a class="nav-link" href="">Bet</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="manageteam.php">Manage All Teams</a>
+                                            <a class="nav-link" href="addtoss.php">Add Toss Game</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
-                            
+
                         </ul>
                     </div>
                 </nav>
@@ -182,13 +183,13 @@ else
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="page-header">
                                 <h2 class="pageheader-title"><?php echo $SiteName; ?> Dashboard</h2>
-                                
+
                                 <div class="page-breadcrumb">
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="../index.php" class="breadcrumb-link">Dashboard</a></li>
-                                            <li class="breadcrumb-item"><a href="" class="breadcrumb-link">Users</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Manage Users</li>
+                                            <li class="breadcrumb-item"><a href="" class="breadcrumb-link">Bet</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Add Multiplayer Game</li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -198,50 +199,24 @@ else
                     <!-- ============================================================== -->
                     <!-- end pageheader  -->
                     <!-- ============================================================== -->
-                   
-                    <div class="container1">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Name</th>
-                                        <th>Username</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Credits</th>
-                                        <th>Status</th>
-                                        <th>Edit</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $sql = "SELECT * FROM `users` ";
-                                    $result = mysqli_query($con, $sql);
-                                    if (mysqli_num_rows($result) > 0) {
-                                        while ($row = mysqli_fetch_array($result)) {
-                                            $status = ($row[7]==1) ? "Active" : "Disabled";
-                                            echo "
-                                             <tr>
-                                             <td>#$row[0]</td>
-                                             <td>$row[1]</td>
-                                             <td>$row[2]</td>
-                                             <td>$row[3]</td>
-                                             <td>$row[5]</td>
-                                             <td>$row[6]</td>
-                                             <td>$status</td>
-                                             <td><a href='edituser.php?id=$row[0]' class='btn btn-info'>Edit</td>
-                                             </tr>
-                                             ";
-                                        }
-                                    }
+                    <div class="container1" id="formbox">
+                        <form action="rules.php" method="post">
+                            <input type="submit" name="submit" value="SAVE RULES" style="border: none; background: #15b03e; color: #fff; padding: 5px;">
+                            <?php
+                            $sql = "SELECT * FROM `rule` ";
+                            $result = mysqli_query($con, $sql);
+                            if (mysqli_num_rows($result) > 0) {
+                                $row = mysqli_fetch_array($result);
+                                echo '<textarea name="content" class="form-control" id="editor">'.$row[1].'</textarea>';
+                            }
 
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
+                            ?>
+
+                            
+                        </form>
                     </div>
-                    
+
+
                 </div>
             </div>
             <!-- ============================================================== -->
@@ -251,9 +226,9 @@ else
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                             Copyright © 2019 <?php echo $SiteName; ?>  All rights reserved. Dashboard by <a href="https://bilwg.com/">Bilwg</a>.
+                            Copyright © 2019 <?php echo $SiteName; ?> All rights reserved. Dashboard by <a href="https://bilwg.com/">Bilwg</a>.
                         </div>
-                     
+
                     </div>
                 </div>
             </div>
@@ -277,6 +252,28 @@ else
     <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
     <!-- main js -->
     <script src="../assets/libs/js/main-js.js"></script>
-    </body>
- 
+    <script src="../assets/libs/js/myfun.js"></script>
+
+
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+</body>
+
 </html>
+
+<?php
+if (isset($_POST['submit'])) {
+    $content  = $_POST['content'];
+
+    $sql = "UPDATE `rule` SET `text`= '$content' WHERE 1";
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) > 0) {
+            header('Location: rules.php');
+    }
+}
+?>
