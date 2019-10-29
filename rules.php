@@ -67,7 +67,7 @@ $netExposure = exposer($con, $username);
                 $result = mysqli_query($con, $sql);
                 if (mysqli_num_rows($result) > 0) {
                     $row = mysqli_fetch_array($result);
-                    echo $row[1]
+                    echo $row[1];
                 }
                 
                 ?>
