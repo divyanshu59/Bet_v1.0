@@ -61,6 +61,7 @@ $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
             <div id="box">
                 <h2>New Betting</h2>
                 <hr>
+                <p>Toss Betting</p>
                 <div id="flexbox">
                     <?php
                     $i = 0;
@@ -78,11 +79,11 @@ $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
                             <br>
                             <li>Team 2: $row[4]</li>
                             <br>
-                            <span style='color: green'>Price: $row[6]</span>
+                            <span style='color: green'>Price: $row[5]%</span>
                             <br>
                             <br>
                             <br>
-                            <a id='btn' href='showtoss.php?id=$row[0]'>Bet Now for $row[5] points</a>
+                            <a id='btn' href='showtoss.php?id=$row[0]'>Bet Now</a>
                             
                             </div>
                             ";
@@ -91,6 +92,165 @@ $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
                                echo '</div><br><div id="flexbox">'; 
                             }
                         }
+                    }
+                    else{
+                        echo "<span style='color: red;'>No Active Bets Options</span>";
+                    }
+
+                    ?>
+                </div>
+                <hr>
+                <p>Score Gussing</p>
+                <div id="flexbox">
+                    <?php
+                    $i = 0;
+                    $sql = "SELECT * FROM `score` WHERE `status` = 1 and `time` > now() ";
+                    $result = mysqli_query($con, $sql);
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_array($result)) {
+                            $i++;
+                          
+                            echo "
+                            <div id='card1'>
+                            <center><h4>$row[2]<h4></center>
+                            <hr>
+                            <li>Team 1: $row[3]</li>
+                            <br>
+                            <li>Team 2: $row[4]</li>
+                            <br>
+                            <span style='color: green'>Price: $row[5]%</span>
+                            <br>
+                            <br>
+                            <br>
+                            <a id='btn' href='showscore.php?id=$row[0]'>Bet Now</a>
+                            
+                            </div>
+                            ";
+                            if($i%3==0)
+                            {
+                               echo '</div><br><div id="flexbox">'; 
+                            }
+                        }
+                    }
+                    else{
+                        echo "<span style='color: red;'>No Active Bets Options</span>";
+                    }
+
+                    ?>
+                </div>
+                <hr>
+                <p>Multiplayer Betting</p>
+                <div id="flexbox">
+                    <?php
+                    $i = 0;
+                    $sql = "SELECT * FROM `multiplayer` WHERE `status` = 1 and `time` > now() ";
+                    $result = mysqli_query($con, $sql);
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_array($result)) {
+                            $i++;
+                          
+                            echo "
+                            <div id='card1'>
+                            <center><h4>$row[2]<h4></center>
+                            <hr>
+                            <li>Team 1: $row[3]</li>
+                            <br>
+                            <li>Team 2: $row[4]</li>
+                            <br>
+                            <span style='color: green'>Price: $row[5]%</span>
+                            <br>
+                            <br>
+                            <br>
+                            <a id='btn' href='showmultiplayer.php?id=$row[0]'>Bet Now </a>
+                            
+                            </div>
+                            ";
+                            if($i%3==0)
+                            {
+                               echo '</div><br><div id="flexbox">'; 
+                            }
+                        }
+                    }
+                    else{
+                        echo "<span style='color: red;'>No Active Bets Options</span>";
+                    }
+
+                    ?>
+                </div>
+                <hr>
+                <p>1 Vs 1 Betting</p>
+                <div id="flexbox">
+                    <?php
+                    $i = 0;
+                    $sql = "SELECT * FROM `1v1` WHERE `status` = 1 and `time` > now() ";
+                    $result = mysqli_query($con, $sql);
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_array($result)) {
+                            $i++;
+                          
+                            echo "
+                            <div id='card1'>
+                            <center><h4>$row[2]<h4></center>
+                            <hr>
+                            <li>Team 1: $row[3]</li>
+                            <br>
+                            <li>Team 2: $row[4]</li>
+                            <br>
+                            <span style='color: green'>Price: $row[5]%</span>
+                            <br>
+                            <br>
+                            <br>
+                            <a id='btn' href='show1v1.php?id=$row[0]'>Bet Now </a>
+                            
+                            </div>
+                            ";
+                            if($i%3==0)
+                            {
+                               echo '</div><br><div id="flexbox">'; 
+                            }
+                        }
+                    }
+                    else{
+                        echo "<span style='color: red;'>No Active Bets Options</span>";
+                    }
+
+                    ?>
+                </div>
+                <hr>
+                <p>2 Vs 2 Betting</p>
+                <div id="flexbox">
+                    <?php
+                    $i = 0;
+                    $sql = "SELECT * FROM `2v2` WHERE `status` = 1 and `time` > now() ";
+                    $result = mysqli_query($con, $sql);
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_array($result)) {
+                            $i++;
+                          
+                            echo "
+                            <div id='card1'>
+                            <center><h4>$row[2]<h4></center>
+                            <hr>
+                            <li>Team 1: $row[3]</li>
+                            <br>
+                            <li>Team 2: $row[4]</li>
+                            <br>
+                            <span style='color: green'>Price: $row[5]%</span>
+                            <br>
+                            <br>
+                            <br>
+                            <a id='btn' href='show2v2.php?id=$row[0]'>Bet Now </a>
+                            
+                            </div>
+                            ";
+                            if($i%3==0)
+                            {
+                               echo '</div><br><div id="flexbox">'; 
+                            }
+                        }
+                    }
+                    else{
+                        echo "<span style='color: red;'>No Active Bets Options</span>";
                     }
 
                     ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2019 at 06:49 PM
+-- Generation Time: Oct 30, 2019 at 09:09 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
@@ -48,7 +48,7 @@ CREATE TABLE `1v1` (
 --
 
 INSERT INTO `1v1` (`id`, `sportid`, `sportname`, `teamA`, `teamB`, `percentage`, `totalentry`, `time`, `totalCollected`, `winteam`, `winteamid`, `status`) VALUES
-(1, 1, 'Football', 'TeamS8', 'TeamC', 10, 3, '2019-10-29 16:03:00', 650, '', 0, 1);
+(1, 1, 'Football', 'TeamS8', 'TeamC', 10, 3, '2019-10-29 16:03:00', 650, 'TeamS8', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -72,7 +72,7 @@ CREATE TABLE `1v1bet` (
 --
 
 INSERT INTO `1v1bet` (`id`, `roomid`, `username`, `tossid`, `team`, `amount`, `anoutwin`, `status`) VALUES
-(5, 26545, 'DivyanshuSah856', 1, 'TeamS8', 200, 220, 1);
+(5, 26545, 'DivyanshuSah856', 1, 'TeamS8', 200, 220, 0);
 
 -- --------------------------------------------------------
 
@@ -100,7 +100,7 @@ CREATE TABLE `2v2` (
 --
 
 INSERT INTO `2v2` (`id`, `sportid`, `sportname`, `teamA`, `teamB`, `percentage`, `totalentry`, `time`, `totalCollected`, `winteam`, `winteamid`, `status`) VALUES
-(1, 1, 'Football', 'TeamS8', 'TeamC', 57, 2, '2019-10-29 12:23:00', 800, '', 0, 1);
+(1, 1, 'Football', 'TeamS8', 'TeamC', 57, 2, '2019-10-29 12:23:00', 800, 'TeamC', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -124,7 +124,7 @@ CREATE TABLE `2v2bet` (
 --
 
 INSERT INTO `2v2bet` (`id`, `roomid`, `username`, `tossid`, `team`, `amount`, `anoutwin`, `status`) VALUES
-(3, 14324, 'DivyanshuSah856', 1, 'TeamC', 400, 628, 1);
+(3, 14324, 'DivyanshuSah856', 1, 'TeamC', 400, 628, 0);
 
 -- --------------------------------------------------------
 
@@ -173,7 +173,7 @@ CREATE TABLE `multiplayer` (
 --
 
 INSERT INTO `multiplayer` (`id`, `sportid`, `sportname`, `teamA`, `teamB`, `percentage`, `totalentry`, `time`, `totalCollected`, `winteam`, `winteamid`, `status`) VALUES
-(1, 1, 'Football', 'TeamC', 'TeamS8', 40, 0, '2019-10-30 14:32:00', 0, '', 0, 1),
+(1, 1, 'Football', 'TeamC', 'TeamS8', 40, 1, '2019-10-30 14:32:00', 10, 'TeamC', 0, 0),
 (2, 1, 'Football', 'TeamC', 'TeamS8', 40, 0, '2019-10-30 14:32:00', 0, '', 0, 1),
 (3, 1, 'Football', 'TeamC', 'TeamC', 40, 0, '2019-10-31 14:03:00', 0, '', 0, 1);
 
@@ -198,7 +198,7 @@ CREATE TABLE `multiplayerbet` (
 --
 
 INSERT INTO `multiplayerbet` (`id`, `username`, `tossid`, `team`, `amount`, `anoutwin`, `status`) VALUES
-(2, 'DivyanshuSah856', 1, 'TeamC', 10, 14, 1);
+(2, 'DivyanshuSah856', 1, 'TeamC', 10, 14, 0);
 
 -- --------------------------------------------------------
 
@@ -224,9 +224,26 @@ CREATE TABLE `room` (
 --
 
 INSERT INTO `room` (`id`, `bettype`, `totalperson`, `gameid`, `personuname`, `amount`, `joined`, `team`, `percentage`, `status`) VALUES
-(14324, 2, 4, 1, 'DivyanshuSah856,DivyanshuSah856,DivyanshuSah856', 400, 3, 'TeamC', 57, 1),
-(26545, 1, 2, 1, 'DivyanshuSah856', 200, 1, 'TeamS8', 10, 1),
-(89918, 1, 2, 1, 'DivyanshuSah856', 400, 1, 'TeamC', 57, 1);
+(14324, 2, 4, 1, 'DivyanshuSah856,DivyanshuSah856,DivyanshuSah856,DivyanshuSah856', 400, 4, 'TeamC', 57, 1),
+(26545, 1, 2, 1, 'DivyanshuSah856,DivyanshuSah856', 200, 2, 'TeamS8', 10, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rule`
+--
+
+CREATE TABLE `rule` (
+  `id` int(11) NOT NULL,
+  `text` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rule`
+--
+
+INSERT INTO `rule` (`id`, `text`) VALUES
+(1, '<h2>Rules And Regulation Page</h2>');
 
 -- --------------------------------------------------------
 
@@ -255,7 +272,7 @@ CREATE TABLE `score` (
 
 INSERT INTO `score` (`id`, `sportid`, `sportname`, `teamA`, `teamB`, `percentage`, `totalentry`, `time`, `totalCollected`, `winteam`, `winteamid`, `status`) VALUES
 (1, 1, 'Football', 'TeamS8', 'TeamC', 2, 0, '2019-10-29 12:35:00', 0, '', 0, 1),
-(2, 1, 'Football', 'TeamS8', 'TeamC', 40, 2, '2019-10-30 00:34:00', 155, '', 0, 1),
+(2, 1, 'Football', 'TeamS8', 'TeamC', 40, 2, '2019-10-30 00:34:00', 155, 'TeamC', 0, 0),
 (3, 1, 'Football', 'TeamC', 'TeamS8', 12, 0, '2019-10-30 14:13:00', 0, '', 0, 1);
 
 -- --------------------------------------------------------
@@ -280,7 +297,7 @@ CREATE TABLE `scorebet` (
 --
 
 INSERT INTO `scorebet` (`id`, `username`, `tossid`, `team`, `score`, `amount`, `anoutwin`, `status`) VALUES
-(8, 'DivyanshuSah856', 2, 'TeamC', 324, 100, 140, 1);
+(8, 'DivyanshuSah856', 2, 'TeamC', 324, 100, 140, 0);
 
 -- --------------------------------------------------------
 
@@ -353,7 +370,7 @@ CREATE TABLE `toss` (
 --
 
 INSERT INTO `toss` (`id`, `sportid`, `sportname`, `teamA`, `teamB`, `percentage`, `totalentry`, `time`, `totalCollected`, `winteam`, `winteamid`, `status`) VALUES
-(1, 1, 'Football', 'TeamS8', 'TeamC', 50, 1, '2019-11-20 00:00:00', 200, '', 0, 1),
+(1, 1, 'Football', 'TeamS8', 'TeamC', 50, 2, '2019-11-20 00:00:00', 1400, 'TeamS8', 0, 0),
 (2, 1, 'Football', 'TeamC', 'TeamS8', 10, 0, '2019-10-29 12:00:00', 0, '', 0, 1);
 
 -- --------------------------------------------------------
@@ -377,7 +394,7 @@ CREATE TABLE `tossbet` (
 --
 
 INSERT INTO `tossbet` (`id`, `username`, `tossid`, `team`, `amount`, `anoutwin`, `status`) VALUES
-(2, 'DivyanshuSah856', 1, 'TeamS8', 200, 300, 1);
+(3, 'DivyanshuSah856', 1, 'TeamS8', 1200, 1800, 0);
 
 -- --------------------------------------------------------
 
@@ -401,8 +418,29 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `password`, `phone`, `credits`, `status`) VALUES
-(1, 'divyananshu', 'DivyanshuSah856', 'divyanshu.14@gmail.com', 'qwerty', '9410335478', 12, 1),
+(1, 'divyananshu', 'DivyanshuSah856', 'divyanshu.14@gmail.com', 'qwerty', '9410335478', 440, 1),
 (2, 'fgdfgd', 'fgdfgd16975', '', 'qwerty', '', 3423, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `withdrawal`
+--
+
+CREATE TABLE `withdrawal` (
+  `id` int(11) NOT NULL,
+  `username` varchar(1100) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `time` datetime NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `withdrawal`
+--
+
+INSERT INTO `withdrawal` (`id`, `username`, `amount`, `time`, `status`) VALUES
+(1, 'DivyanshuSah856', 100, '2019-10-30 01:12:25', -1);
 
 --
 -- Indexes for dumped tables
@@ -457,6 +495,12 @@ ALTER TABLE `room`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `rule`
+--
+ALTER TABLE `rule`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `score`
 --
 ALTER TABLE `score`
@@ -496,6 +540,12 @@ ALTER TABLE `tossbet`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `withdrawal`
+--
+ALTER TABLE `withdrawal`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -551,6 +601,12 @@ ALTER TABLE `room`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89919;
 
 --
+-- AUTO_INCREMENT for table `rule`
+--
+ALTER TABLE `rule`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `score`
 --
 ALTER TABLE `score`
@@ -584,13 +640,19 @@ ALTER TABLE `toss`
 -- AUTO_INCREMENT for table `tossbet`
 --
 ALTER TABLE `tossbet`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `withdrawal`
+--
+ALTER TABLE `withdrawal`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
