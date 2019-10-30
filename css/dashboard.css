@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  background: #d3d3d3;
 }
 
 header {
@@ -94,7 +95,7 @@ main div#content {
   margin-left: 250px;
   background: #d3d3d3;
   padding: 30px;
-  height: 86vh;
+  height: 100%;
 }
 
 @media (max-width: 680px) {
