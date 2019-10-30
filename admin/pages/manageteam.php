@@ -131,6 +131,20 @@ else
                                     </ul>
                                 </div>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4"><i class="fab fa-fw fa-wpforms"></i>Manage Bets</a>
+                                <div id="submenu-4" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="managetoss.php">Manage Toss Game</a>
+                                            <a class="nav-link" href="managescore.php">Manage Score Gussing</a>
+                                            <a class="nav-link" href="manage1v1.php">Manage 1 Vs 1 Game</a>
+                                            <a class="nav-link" href="manage2v2.php">Manage 2 vs 2 Game</a>
+                                            <a class="nav-link" href="managemultiplayer.php">Manage Multiplayer Game</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
                             <li class="nav-divider">
                                 Features
                             </li>
