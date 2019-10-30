@@ -399,19 +399,18 @@ if (isset($_POST['submit'])) {
                     $sql = "UPDATE `users` SET `credits`=$credits WHERE `username` = '$username' ";
                     $result = mysqli_query($con, $sql);
 
-                    $sql = "UPDATE `toss` SET `winteam`= '$team', `status` = 0 WHERE `id` = '$id' ";
-                    $result = mysqli_query($con, $sql);
-                   
+
+
                     $sql = "UPDATE `tossbet` SET `status` = 0 WHERE `id` = '$teamid' ";
                     $result = mysqli_query($con, $sql);
 
                     header('Location: ../index.php');
                 }
             }
+            $sql = "UPDATE `toss` SET `winteam`= '$team', `status` = 0 WHERE `id` = '$id' ";
+            $result = mysqli_query($con, $sql);
         }
-    }
-    elseif ($type == 'score')
-    {
+    } elseif ($type == 'score') {
         $score = $_POST['score'];
         $sql = "SELECT * FROM `scorebet` WHERE `tossid` = '$id' and `status` = 1 ";
         $result = mysqli_query($con, $sql);
@@ -437,7 +436,7 @@ if (isset($_POST['submit'])) {
 
                     $sql = "UPDATE `score` SET `winteam`= '$team', `status` = 0 WHERE `id` = '$id' ";
                     $result = mysqli_query($con, $sql);
-                   
+
                     $sql = "UPDATE `scorebet` SET `status` = 0 WHERE `id` = '$teamid' ";
                     $result = mysqli_query($con, $sql);
 
@@ -445,9 +444,7 @@ if (isset($_POST['submit'])) {
                 }
             }
         }
-    } 
-    elseif ($type == 'multiplayer') 
-    {
+    } elseif ($type == 'multiplayer') {
         $sql = "SELECT * FROM `multiplayerbet` WHERE `tossid` = '$id' and `status` = 1 ";
         $result = mysqli_query($con, $sql);
         if (mysqli_num_rows($result) > 0) {
@@ -469,18 +466,107 @@ if (isset($_POST['submit'])) {
                     $sql = "UPDATE `users` SET `credits`=$credits WHERE `username` = '$username' ";
                     $result = mysqli_query($con, $sql);
 
-                    $sql = "UPDATE `multiplayer` SET `winteam`= '$team', `status` = 0 WHERE `id` = '$id' ";
-                    $result = mysqli_query($con, $sql);
-                   
+
+
                     $sql = "UPDATE `multiplayerbet` SET `status` = 0 WHERE `id` = '$teamid' ";
                     $result = mysqli_query($con, $sql);
 
                     header('Location: ../index.php');
                 }
             }
+            $sql = "UPDATE `multiplayer` SET `winteam`= '$team', `status` = 0 WHERE `id` = '$id' ";
+            $result = mysqli_query($con, $sql);
+        }
+    } elseif ($type == '1v1') {
+
+        $sql = "SELECT * FROM `1v1bet` WHERE `tossid` = '$id' and `status` = 1 ";
+        $result = mysqli_query($con, $sql);
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_array($result);
+            $teamid = $row[0];
+            $roomid = $row[1];
+            $winamount = $row[6];
+            $selectedteam = $row[4];
+
+            if ($selectedteam == $team) {
+                $sql = "SELECT * FROM `room` WHERE `totalperson` <= `joined` and `bettype`= 1 and `gameid` = '$id' ";
+                $result = mysqli_query($con, $sql);
+                if (mysqli_num_rows($result) > 0) {
+                    $row = mysqli_fetch_array($result);
+                    $usernameTEMP = $row[4];
+                    $array = explode(',', $usernameTEMP);
+                    foreach ($array as $username) //loop over values
+                    {
+                        
+                        $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
+                        $result = mysqli_query($con, $sql);
+                        if (mysqli_num_rows($result) > 0) {
+                            $row = mysqli_fetch_array($result);
+                            $credits = $row[6];
+                            $credits = $credits + $winamount;
+
+                            $sql = "UPDATE `users` SET `credits`=$credits WHERE `username` = '$username' ";
+                            $result = mysqli_query($con, $sql);
+
+
+
+                            $sql = "UPDATE `1v1bet` SET `status` = 0 WHERE `id` = '$teamid' ";
+                            $result = mysqli_query($con, $sql);
+
+                            header('Location: ../index.php');
+                        }
+                    }
+                }
+            
+            $sql = "UPDATE `1v1` SET `winteam`= '$team', `status` = 0 WHERE `id` = '$id' ";
+            $result = mysqli_query($con, $sql);
         }
     }
-    elseif ($type == '1v1') { } elseif ($type == '2v2') { }
+    } elseif ($type == '2v2') {
+
+        $sql = "SELECT * FROM `2v2bet` WHERE `tossid` = '$id' and `status` = 1 ";
+        $result = mysqli_query($con, $sql);
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_array($result);
+            $teamid = $row[0];
+            $roomid = $row[1];
+            $winamount = $row[6];
+            $selectedteam = $row[4];
+
+            if ($selectedteam == $team) {
+                $sql = "SELECT * FROM `room` WHERE `totalperson` <= `joined` and `bettype`= 2 and `gameid` = '$id' ";
+                $result = mysqli_query($con, $sql);
+                if (mysqli_num_rows($result) > 0) {
+                    $row = mysqli_fetch_array($result);
+                    $usernameTEMP = $row[4];
+                    $array = explode(',', $usernameTEMP);
+                    foreach ($array as $username) //loop over values
+                    {
+                        
+                        $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
+                        $result = mysqli_query($con, $sql);
+                        if (mysqli_num_rows($result) > 0) {
+                            $row = mysqli_fetch_array($result);
+                            $credits = $row[6];
+                            $credits = $credits + $winamount;
+
+                            $sql = "UPDATE `users` SET `credits`=$credits WHERE `username` = '$username' ";
+                            $result = mysqli_query($con, $sql);
+
+
+
+                            $sql = "UPDATE `2v2bet` SET `status` = 0 WHERE `id` = '$teamid' ";
+                            $result = mysqli_query($con, $sql);
+
+                            header('Location: ../index.php');
+                        }
+                    }
+                }
+            }
+            $sql = "UPDATE `2v2` SET `winteam`= '$team', `status` = 0 WHERE `id` = '$id' ";
+            $result = mysqli_query($con, $sql);
+        }
+    }
 }
 
 
