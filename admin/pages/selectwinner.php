@@ -176,10 +176,10 @@ if (isset($_COOKIE['Alogin'])) {
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="rules.php" ><i class="fa fa-gavel"></i>Rules</a>
+                                <a class="nav-link" href="rules.php"><i class="fa fa-gavel"></i>Rules</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="wallet.php" ><i class="fa fa-google-wallet"></i>Withdrawal</a>
+                                <a class="nav-link" href="wallet.php"><i class="fa fa-google-wallet"></i>Withdrawal</a>
                             </li>
                         </ul>
                     </div>
@@ -207,8 +207,8 @@ if (isset($_COOKIE['Alogin'])) {
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="../index.php" class="breadcrumb-link">Dashboard</a></li>
-                                            <li class="breadcrumb-item"><a href="" class="breadcrumb-link">Bet</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Add Toss</li>
+                                            <li class="breadcrumb-item"><a href="" class="breadcrumb-link">Manage Bet</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Select Winner</li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -221,53 +221,114 @@ if (isset($_COOKIE['Alogin'])) {
 
                     <div class="container1" id="formbox">
                         <h2>Manage Toss</h2>
-                        
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Sport Name</th>
-                                        <th>Tema A</th>
-                                        <th>Team B</th>
-                                        <th>Percentage</th>
-                                        <th>Total Entry</th>
-                                        <th>Time</th>
-                                        <th>Total Collected</th>
-                                        <th>Win Team</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $sql = "SELECT * FROM `toss` ";
-                                    $result = mysqli_query($con, $sql);
-                                    if (mysqli_num_rows($result) > 0) {
-                                        while ($row = mysqli_fetch_array($result)) {
-                                            $status = ($row[11]==1) ? "Active" : "Disabled";
-                                            $winteam = ($row[9]=="") ? "<a href='selectwinner.php?id=$row[0]&type=toss'>Select Winner</a>" : "$row[9]";
-                                            echo "
-                                             <tr>
-                                             <td>#$row[0]</td>
-                                             <td>$row[2]</td>
-                                             <td>$row[3]</td>
-                                             <td>$row[4]</td>
-                                             <td>$row[5]</td>
-                                             <td>$row[6]</td>
-                                             <td>$row[7]</td>
-                                             <td>$row[8]</td>
-                                             <td>$winteam</td>
-                                             <td>$status</td>
-                                             <!-- <td><a href='edituser.php?id=$row[0]' class='btn btn-info'>Edit</td> -->
-                                             </tr>
-                                             ";
-                                        }
-                                    }
+                        <?php
+                        if (isset($_GET['id']) && isset($_GET['type'])) {
+                            $id = $_GET['id'];
+                            $type = $_GET['type'];
 
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
+                            if ($type == 'toss') {
+                                $sql = "SELECT * FROM `toss` where `id` = '$id' ";
+                                $result = mysqli_query($con, $sql);
+                                if (mysqli_num_rows($result) > 0) {
+                                    $row = mysqli_fetch_array($result);
+                                    echo "
+                                    <form action='selectwinner.php' method='post'>
+                                        <label>Select Winner</label>
+                                        <select class='form-control' name='team'>
+                                            <option>$row[3]</option>
+                                            <option>$row[4]</option>
+                                        </select>
+                                        <br>
+                                        <input type='hidden' name='type' value='toss'>
+                                        <input type='hidden' name='id' value='$id'>
+                                        <input type='submit' name='submit' class='btn btn-lg btn-success' value='Declare Winner'>
+                                    </form>
+                                    ";
+                                }
+                            } elseif ($type == 'score') {
+                                $sql = "SELECT * FROM `score` where `id` = '$id' ";
+                                $result = mysqli_query($con, $sql);
+                                if (mysqli_num_rows($result) > 0) {
+                                    $row = mysqli_fetch_array($result);
+                                    echo "
+                                    <form action='selectwinner.php' method='post' >
+                                        <label>Select Winner</label>
+                                        <select class='form-control' name='team'>
+                                            <option>$row[3]</option>
+                                            <option>$row[4]</option>
+                                        </select>
+                                        <br>
+                                        <input type='number' name='score' class='form-control' placeholder='Enter Score' required>
+                                        <br>
+                                        <input type='hidden' name='type' value='score'>
+                                        <input type='hidden' name='id' value='$id'>
+                                        <input type='submit' name='submit' class='btn btn-lg btn-success' value='Declare Winner'>
+                                    </form>
+                                    ";
+                                }
+                            } elseif ($type == 'multiplayer') {
+                                $sql = "SELECT * FROM `multiplayer` where `id` = '$id' ";
+                                $result = mysqli_query($con, $sql);
+                                if (mysqli_num_rows($result) > 0) {
+                                    $row = mysqli_fetch_array($result);
+                                    echo "
+                                    <form action='selectwinner.php' method='post'>
+                                        <label>Select Winner</label>
+                                        <select class='form-control' name='team'>
+                                            <option>$row[3]</option>
+                                            <option>$row[4]</option>
+                                        </select>
+                                        <br>
+                                        <input type='hidden' name='type' value='multiplayer'>
+                                        <input type='hidden' name='id' value='$id'>
+                                        <input type='submit' name='submit' class='btn btn-lg btn-success' value='Declare Winner'>
+                                    </form>
+                                    ";
+                                }
+                            } elseif ($type == '1v1') {
+                                $sql = "SELECT * FROM `1v1` where `id` = '$id' ";
+                                $result = mysqli_query($con, $sql);
+                                if (mysqli_num_rows($result) > 0) {
+                                    $row = mysqli_fetch_array($result);
+                                    echo "
+                                    <form action='selectwinner.php' method='post'>
+                                        <label>Select Winner</label>
+                                        <select class='form-control' name='team'>
+                                            <option>$row[3]</option>
+                                            <option>$row[4]</option>
+                                        </select>
+                                        <br>
+                                        <input type='hidden' name='type' value='1v1'>
+                                        <input type='hidden' name='id' value='$id'>
+                                        <input type='submit' name='submit' class='btn btn-lg btn-success' value='Declare Winner'>
+                                    </form>
+                                    ";
+                                }
+                            } elseif ($type == '2v2') {
+                                $sql = "SELECT * FROM `2v2` where `id` = '$id' ";
+                                $result = mysqli_query($con, $sql);
+                                if (mysqli_num_rows($result) > 0) {
+                                    $row = mysqli_fetch_array($result);
+                                    echo "
+                                    <form action='selectwinner.php' method='post'>
+                                        <label>Select Winner</label>
+                                        <select class='form-control' name='team'>
+                                            <option>$row[3]</option>
+                                            <option>$row[4]</option>
+                                        </select>
+                                        <br>
+                                        <input type='hidden' name='type' value='2v2'>
+                                        <input type='hidden' name='id' value='$id'>
+                                        <input type='submit' name='submit' class='btn btn-lg btn-success' value='Declare Winner'>
+                                    </form>
+                                    ";
+                                }
+                            }
+                        } else {
+                            header('Location: ../index.php');
+                        }
+
+                        ?>
                     </div>
 
                 </div>
@@ -310,3 +371,117 @@ if (isset($_COOKIE['Alogin'])) {
 
 </html>
 
+<?php
+if (isset($_POST['submit'])) {
+    $id = $_POST['id'];
+    $type = $_POST['type'];
+    $team = $_POST['team'];
+
+    if ($type == 'toss') {
+        $sql = "SELECT * FROM `tossbet` WHERE `tossid` = '$id' and `status` = 1 ";
+        $result = mysqli_query($con, $sql);
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_array($result);
+            $teamid = $row[0];
+            $username = $row[1];
+            $winamount = $row[5];
+            $selectedteam = $row[3];
+
+            if ($selectedteam == $team) {
+
+                $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
+                $result = mysqli_query($con, $sql);
+                if (mysqli_num_rows($result) > 0) {
+                    $row = mysqli_fetch_array($result);
+                    $credits = $row[6];
+                    $credits = $credits + $winamount;
+
+                    $sql = "UPDATE `users` SET `credits`=$credits WHERE `username` = '$username' ";
+                    $result = mysqli_query($con, $sql);
+
+                    $sql = "UPDATE `toss` SET `winteam`= '$team', `status` = 0 WHERE `id` = '$id' ";
+                    $result = mysqli_query($con, $sql);
+                   
+                    $sql = "UPDATE `tossbet` SET `status` = 0 WHERE `id` = '$teamid' ";
+                    $result = mysqli_query($con, $sql);
+
+                    header('Location: ../index.php');
+                }
+            }
+        }
+    }
+    elseif ($type == 'score')
+    {
+        $score = $_POST['score'];
+        $sql = "SELECT * FROM `scorebet` WHERE `tossid` = '$id' and `status` = 1 ";
+        $result = mysqli_query($con, $sql);
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_array($result);
+            $teamid = $row[0];
+            $username = $row[1];
+            $winamount = $row[6];
+            $selectedteam = $row[3];
+            $swlwctedscore = $row[4];
+
+            if ($selectedteam == $team && $score == $swlwctedscore) {
+
+                $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
+                $result = mysqli_query($con, $sql);
+                if (mysqli_num_rows($result) > 0) {
+                    $row = mysqli_fetch_array($result);
+                    $credits = $row[6];
+                    $credits = $credits + $winamount;
+
+                    $sql = "UPDATE `users` SET `credits`=$credits WHERE `username` = '$username' ";
+                    $result = mysqli_query($con, $sql);
+
+                    $sql = "UPDATE `score` SET `winteam`= '$team', `status` = 0 WHERE `id` = '$id' ";
+                    $result = mysqli_query($con, $sql);
+                   
+                    $sql = "UPDATE `scorebet` SET `status` = 0 WHERE `id` = '$teamid' ";
+                    $result = mysqli_query($con, $sql);
+
+                    header('Location: ../index.php');
+                }
+            }
+        }
+    } 
+    elseif ($type == 'multiplayer') 
+    {
+        $sql = "SELECT * FROM `multiplayerbet` WHERE `tossid` = '$id' and `status` = 1 ";
+        $result = mysqli_query($con, $sql);
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_array($result);
+            $teamid = $row[0];
+            $username = $row[1];
+            $winamount = $row[5];
+            $selectedteam = $row[3];
+
+            if ($selectedteam == $team) {
+
+                $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
+                $result = mysqli_query($con, $sql);
+                if (mysqli_num_rows($result) > 0) {
+                    $row = mysqli_fetch_array($result);
+                    $credits = $row[6];
+                    $credits = $credits + $winamount;
+
+                    $sql = "UPDATE `users` SET `credits`=$credits WHERE `username` = '$username' ";
+                    $result = mysqli_query($con, $sql);
+
+                    $sql = "UPDATE `multiplayer` SET `winteam`= '$team', `status` = 0 WHERE `id` = '$id' ";
+                    $result = mysqli_query($con, $sql);
+                   
+                    $sql = "UPDATE `multiplayerbet` SET `status` = 0 WHERE `id` = '$teamid' ";
+                    $result = mysqli_query($con, $sql);
+
+                    header('Location: ../index.php');
+                }
+            }
+        }
+    }
+    elseif ($type == '1v1') { } elseif ($type == '2v2') { }
+}
+
+
+?>

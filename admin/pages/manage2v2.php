@@ -219,7 +219,56 @@ if (isset($_COOKIE['Alogin'])) {
                     <!-- ============================================================== -->
                     <!-- end pageheader  -->
                     <!-- ============================================================== -->
+                    <div class="container1" id="formbox">
+                        <h2>Manage 2 Vs 2</h2>
+                        
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Sport Name</th>
+                                        <th>Tema A</th>
+                                        <th>Team B</th>
+                                        <th>Percentage</th>
+                                        <th>Total Entry</th>
+                                        <th>Time</th>
+                                        <th>Total Collected</th>
+                                        <th>Win Team</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $sql = "SELECT * FROM `2v2` ";
+                                    $result = mysqli_query($con, $sql);
+                                    if (mysqli_num_rows($result) > 0) {
+                                        while ($row = mysqli_fetch_array($result)) {
+                                            $status = ($row[11]==1) ? "Active" : "Disabled";
+                                            $winteam = ($row[9]=="") ? "<a href='selectwinner.php?id=$row[0]&type=2v2'>Select Winner</a>" : "$row[9]";
+                                            echo "
+                                             <tr>
+                                             <td>#$row[0]</td>
+                                             <td>$row[2]</td>
+                                             <td>$row[3]</td>
+                                             <td>$row[4]</td>
+                                             <td>$row[5]</td>
+                                             <td>$row[6]</td>
+                                             <td>$row[7]</td>
+                                             <td>$row[8]</td>
+                                             <td>$winteam</td>
+                                             <td>$status</td>
+                                             <!-- <td><a href='edituser.php?id=$row[0]' class='btn btn-info'>Edit</td> -->
+                                             </tr>
+                                             ";
+                                        }
+                                    }
 
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     
 
 

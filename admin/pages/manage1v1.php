@@ -219,56 +219,54 @@ if (isset($_COOKIE['Alogin'])) {
                     <!-- end pageheader  -->
                     <!-- ============================================================== -->
                     <div class="container1" id="formbox">
-                        <h2>Add 1 Vs 1 Game</h2>
-
-                        <form action="1v1.php" method="post">
-                            <label>Select Sport</label>
-                            <select name="sport" class="form-control" id="sportDropdownSelect">
-                                <option value="">Select</option>
-                                <?php
-                                $sql = "SELECT * FROM `sport` WHERE  `status` = 1";
-                                $result = mysqli_query($con, $sql);
-                                if (mysqli_num_rows($result) > 0) {
-                                    while ($row = mysqli_fetch_array($result)) {
-                                        echo "<option value='$row[0]'>$row[1]</option>";
+                        <h2>Manage 1 Vs 1</h2>
+                        
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Sport Name</th>
+                                        <th>Tema A</th>
+                                        <th>Team B</th>
+                                        <th>Percentage</th>
+                                        <th>Total Entry</th>
+                                        <th>Time</th>
+                                        <th>Total Collected</th>
+                                        <th>Win Team</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $sql = "SELECT * FROM `1v1` ";
+                                    $result = mysqli_query($con, $sql);
+                                    if (mysqli_num_rows($result) > 0) {
+                                        while ($row = mysqli_fetch_array($result)) {
+                                            $status = ($row[11]==1) ? "Active" : "Disabled";
+                                            $winteam = ($row[9]=="") ? "<a href='selectwinner.php?id=$row[0]&type=1v1'>Select Winner</a>" : "$row[9]";
+                                            echo "
+                                             <tr>
+                                             <td>#$row[0]</td>
+                                             <td>$row[2]</td>
+                                             <td>$row[3]</td>
+                                             <td>$row[4]</td>
+                                             <td>$row[5]</td>
+                                             <td>$row[6]</td>
+                                             <td>$row[7]</td>
+                                             <td>$row[8]</td>
+                                             <td>$winteam</td>
+                                             <td>$status</td>
+                                             <!-- <td><a href='edituser.php?id=$row[0]' class='btn btn-info'>Edit</td> -->
+                                             </tr>
+                                             ";
+                                        }
                                     }
-                                }
-                                ?>
 
-                            </select>
-                            <br>
-                            <label>Select Team A</label>
-                            <select name="teama" class="form-control" id="SelectTeam1"></select>
-                            <br>
-                            <label>Select Team B</label>
-                            <select name="teamb" class="form-control" id="SelectTeam2"></select>
-
-                            <br>
-                            <label>Winning Percentage</label>
-                            <input type="number" class="form-control" name="percentage" placeholder="Perecntage" required>
-                            <br>
-                            <label>Date And Time</label>
-                            <input class="form-control" type="datetime-local" name="time" min="2019-10-01T00:00">
-                            <br>
-                            <input type="submit" name="submit" value="Add 1 Vs 1 " class="btn btn-success">
-                            <input type="reset" value="Reset" class="btn btn-danger">
-                        </form>
-                    </div>
-                    <div class="container1" id="result">
-                        <p id="resultText">
-                            <?php
-                            if (isset($_GET['added'])) {
-                                echo "
-                                <script>
-                                document.getElementById('formbox').style.display = 'none';
-                               </script>
-
-                               <h3 class='text-success'>Multiplayer Game Added! </h3>
-                                ";
-                                echo '<a href="1v1.php" class="btn btn-success">Ok</a>';
-                            }
-                            ?>
-                        </p>
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
 
@@ -312,29 +310,3 @@ if (isset($_COOKIE['Alogin'])) {
 
 </html>
 
-<?php
-
-if (isset($_POST['submit'])) {
-    $sport = $_POST['sport'];
-    $teama = $_POST['teama'];
-    $teamb = $_POST['teamb'];
-    $percentage = $_POST['percentage'];
-    $time = $_POST['time'];
-
-    $sql = "SELECT * FROM `sport` WHERE  `id` = '$sport' ";
-    $result = mysqli_query($con, $sql);
-    if (mysqli_num_rows($result) > 0) {
-        while ($row = mysqli_fetch_array($result)) {
-            $sportname = $row[1];
-        }
-    }
-
-    $sql1 = "INSERT INTO `1v1`(`sportid`, `sportname`, `teamA`, `teamB`, `percentage`, `totalentry`, `time`, `totalCollected`, `winteam`, `winteamid`, `status`) VALUES 
-    ('$sport','$sportname','$teama','$teamb','$percentage',0,'$time',0,'',0,1)";
-
-    $queryRun = mysqli_query($con, $sql1);
-    if ($queryRun) {
-        header('Location: 1v1.php?added=true');
-    }
-}
-?>
