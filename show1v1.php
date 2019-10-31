@@ -117,6 +117,7 @@ $netExposure = exposer($con, $username);
                                     <div id='joincard' >
                                         <center>Room id: <b>#$row12[0]</b></center> 
                                         <br>
+                                        <b>Already Bet - $row12[7]</b><br>
                                         Credits Amount Required: <span style='color: #00f'>$row12[5]</span>
                                         <br>
                                         <br>
@@ -141,6 +142,8 @@ $netExposure = exposer($con, $username);
                                 <label>Enter Credits Amount</label>
                                 <input type='number' id='text' name='amount'>
                                 <br>
+                                <input type='hidden' value='$row[3]' name='teamA' >
+                                <input type='hidden' value='$row[4]' name='teamB' >
                                 <input type='hidden' value='$username' name='username' >
                                 <input type='hidden' value='$row[0]' name='tossid' >
                                 <input type='hidden' value='$row[5]' name='percentage' >
@@ -167,11 +170,14 @@ $netExposure = exposer($con, $username);
 
 <?php
 if (isset($_POST['betme'])) {
+    $teamA = $_POST['teamA'];
+    $teamB = $_POST['teamB'];
     $team = $_POST['team'];
     $username = $_POST['username'];
     $tossid = $_POST['tossid'];
     $amount = $_POST['amount'];
     $percentage = $_POST['percentage'];
+    if($team = $teamA){$remainTeam = $teamB; }else {$remainTeam = $teamA; }
 
     $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
     $result = mysqli_query($con, $sql);
@@ -186,8 +192,8 @@ if (isset($_POST['betme'])) {
             $result2 = mysqli_query($con, $sql2);
 
             $roomid = rand(1, 99999);
-            $sql10 = "INSERT INTO `room`(`id`,`bettype`, `totalperson`, `gameid`, `personuname`,`amount`,`joined`, `team`,`percentage`, `status`) 
-            VALUES ($roomid,1,2,$tossid,'$username','$amount',1,'$team','$percentage',1)";
+            $sql10 = "INSERT INTO `room`(`id`,`bettype`, `totalperson`, `gameid`, `personuname`,`amount`,`joined`, `team`,`percentage`, `status`,`teamremain`) 
+            VALUES ($roomid,1,2,$tossid,'$username','$amount',1,'$team','$percentage',1, '$remainTeam')";
             $result10 = mysqli_query($con, $sql10);
 
             $sql3 = "INSERT INTO `1v1bet`(  `roomid`, `username`, `tossid`, `team`, `amount`, `anoutwin`, `status`) 

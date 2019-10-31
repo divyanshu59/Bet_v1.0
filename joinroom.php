@@ -21,7 +21,7 @@ $result = mysqli_query($con, $sql);
 if (mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_array($result);
     $tossid = $row[3];
-    $team = $row[7];
+    $team = $row[10];
     $percentage = $row[8];
     $personname = $row[4];
     $totalperson = $row[6];

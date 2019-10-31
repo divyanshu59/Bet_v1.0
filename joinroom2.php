@@ -21,13 +21,15 @@ $result = mysqli_query($con, $sql);
 if (mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_array($result);
     $tossid = $row[3];
-    $team = $row[7];
+   
     $percentage = $row[8];
     $personname = $row[4];
     $totalperson = $row[6];
     $amount = $row[5];
     $totalperson++;
     $personname .= ",".$username;
+    $team = ($row[6]<2) ? $row[7] : $row[10] ;
+
     $sql3 = "UPDATE `room` SET `personuname`='$personname',`joined`=$totalperson WHERE `id` = $id";
     $result = mysqli_query($con, $sql3);
 

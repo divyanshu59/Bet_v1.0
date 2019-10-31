@@ -113,15 +113,18 @@ $netExposure = exposer($con, $username);
                         $result12 = mysqli_query($con, $sql12);
                         if (mysqli_num_rows($result12) > 0) {
                             while ($row12 = mysqli_fetch_array($result12)) {
+                                $tempTeam = ($row12[6]<2) ? $row12[7] : $row12[10] ;
                                 echo "
                                     <div id='joincard' >
-                                        <center>Room id: <b>#$row12[0]</b></center> 
+                                        <center>Room id: <b>#$row12[0]</b></center>
+                                        <br>
+                                        <b>Already Bet - $row12[7]</b><br>
                                         <br>
                                         Credits Amount Required: <span style='color: #00f'>$row12[5]</span>
                                         <br>
                                         <br>
                                        
-                                        <a href='joinroom2.php?id=$row12[0]' id='joinbtn' >Join This Room</a>
+                                        <a href='joinroom2.php?id=$row12[0]' id='joinbtn' >Join This Room ($tempTeam )</a>
                                     </div>
                                     ";
                             }
@@ -141,6 +144,8 @@ $netExposure = exposer($con, $username);
                                 <label>Enter Credits Amount</label>
                                 <input type='number' id='text' name='amount'>
                                 <br>
+                                <input type='hidden' value='$row[3]' name='teamA' >
+                                <input type='hidden' value='$row[4]' name='teamB' >
                                 <input type='hidden' value='$username' name='username' >
                                 <input type='hidden' value='$row[0]' name='tossid' >
                                 <input type='hidden' value='$row[5]' name='percentage' >
@@ -167,11 +172,14 @@ $netExposure = exposer($con, $username);
 
 <?php
 if (isset($_POST['betme'])) {
+    $teamA = $_POST['teamA'];
+    $teamB = $_POST['teamB'];
     $team = $_POST['team'];
     $username = $_POST['username'];
     $tossid = $_POST['tossid'];
     $amount = $_POST['amount'];
     $percentage = $_POST['percentage'];
+    if($team = $teamA){$remainTeam = $teamB; }else {$remainTeam = $teamA; }
 
     $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
     $result = mysqli_query($con, $sql);
@@ -186,8 +194,8 @@ if (isset($_POST['betme'])) {
             $result2 = mysqli_query($con, $sql2);
 
             $roomid = rand(1, 99999);
-            $sql10 = "INSERT INTO `room`(`id`,`bettype`, `totalperson`, `gameid`, `personuname`,`amount`,`joined`, `team`,`percentage`, `status`) 
-            VALUES ($roomid,2,4,$tossid,'$username','$amount',1,'$team','$percentage',1)";
+            $sql10 = "INSERT INTO `room`(`id`,`bettype`, `totalperson`, `gameid`, `personuname`,`amount`,`joined`, `team`,`percentage`, `status`,`teamremain`) 
+            VALUES ($roomid,2,4,$tossid,'$username','$amount',1,'$team','$percentage',1, '$remainTeam')";
             $result10 = mysqli_query($con, $sql10);
 
             $sql3 = "INSERT INTO `2v2bet`(  `roomid`, `username`, `tossid`, `team`, `amount`, `anoutwin`, `status`) 
