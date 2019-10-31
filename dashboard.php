@@ -37,7 +37,7 @@ $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
     <header>
         <span id="mobile" onclick="opennav()"><i class="fa fa-bars" aria-hidden="true"></i></span>
         <span id="sitetitle"><?php echo $SiteName; ?></span>
-        <span id="user"><img src="assets/img/avatar.png"></span>
+        <span id="user"><a href='profile.php'><img src="assets/img/avatar.png"></a></span>
         <span id="username"><?php echo $username ?></span>
         <span id="credits">C: <?php echo $credits ?></span>
         
