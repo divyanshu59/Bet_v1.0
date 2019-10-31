@@ -19,6 +19,7 @@ $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_array($result);
         $credits = $row[6];
+        $image = ($row[8]== "") ? "assets/img/avatar.png" : $row[8] ;
     }
 
     $netExposure = exposer($con, $username);

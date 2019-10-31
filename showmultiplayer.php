@@ -29,6 +29,7 @@ $result = mysqli_query($con, $sql);
 if (mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_array($result);
     $credits = $row[6];
+    $image = ($row[8]== "") ? "assets/img/avatar.png" : $row[8] ;
 }
 
 $sql2 = "SELECT * FROM `multiplayerbet` WHERE `username` = '$username' and `tossid` = '$id' ";
