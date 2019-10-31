@@ -257,7 +257,7 @@ if (isset($_COOKIE['Alogin'])) {
                                              <td>$row[8]</td>
                                              <td>$winteam</td>
                                              <td>$status</td>
-                                             <!-- <td><a href='edituser.php?id=$row[0]' class='btn btn-info'>Edit</td> -->
+                                             <td><a href='delete.php?id=$row[0]&type=1v1' class='btn btn-danger'>Delete</td>
                                              </tr>
                                              ";
                                         }
