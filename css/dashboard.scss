@@ -57,6 +57,15 @@ header{
       display: none;
     }
   }
+  span#username{
+    font-size: 25px;
+    text-align: center;
+    float: right;
+    margin-right: 20px;
+    @include mobile {
+      font-size: 18px;
+    }
+  }
   span#user{
     float: right;
     margin-right: 20px;
