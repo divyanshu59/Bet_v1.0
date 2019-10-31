@@ -57,7 +57,7 @@ $netExposure = exposer($con, $username);
     <header>
         <span id="mobile" onclick="opennav()"><i class="fa fa-bars" aria-hidden="true"></i></span>
         <span id="sitetitle"><a href="dashboard.php"><?php echo $SiteName; ?></a></span>
-        <span id="user"><a href='profile.php'><img src="assets/img/avatar.png"></a></span>
+        <span id="user"><a href='profile.php'><img src="<?php echo $image; ?>"></a></span>
         <span id="username"><?php echo $username ?></span>
         <span id="credits">C: <?php echo $credits ?></span>
     </header>

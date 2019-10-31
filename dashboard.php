@@ -19,6 +19,7 @@ $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_array($result);
         $credits = $row[6];
+        $image = ($row[8]== "") ? "assets/img/avatar.png" : $row[8] ;
     }
 
     $netExposure = exposer($con, $username);
@@ -37,7 +38,7 @@ $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
     <header>
         <span id="mobile" onclick="opennav()"><i class="fa fa-bars" aria-hidden="true"></i></span>
         <span id="sitetitle"><?php echo $SiteName; ?></span>
-        <span id="user"><a href='profile.php'><img src="assets/img/avatar.png"></a></span>
+        <span id="user"><a href='profile.php'><img src="<?php echo $image; ?>"></a></span>
         <span id="username"><?php echo $username ?></span>
         <span id="credits">C: <?php echo $credits ?></span>
         
