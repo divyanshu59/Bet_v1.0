@@ -190,5 +190,16 @@ main{
       }   
     }
   }
+
+  form#profileform{
+    input{
+      width: 90%;
+      padding: 5px;
+      margin: 10px;
+      border: none;
+      background: #dbe7fc;
+      border-radius: 10px;
+    }
+  }
   }
 }
