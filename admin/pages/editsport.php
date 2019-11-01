@@ -171,7 +171,7 @@ if (isset($_GET['id'])) {
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-7" aria-controls="submenu-7"><i class="fas fa-fw fa-inbox"></i>Teams</a>
                                 <div id="submenu-7" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
-                                        <li class="nav-item">
+                                    <li class="nav-item">
                                             <a class="nav-link" href="addteam.php">Add Team</a>
                                         </li>
                                         <li class="nav-item">

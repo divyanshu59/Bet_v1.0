@@ -165,136 +165,138 @@ if (isset($_COOKIE['Alogin'])) {
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-7" aria-controls="submenu-7"><i class="fas fa-fw fa-inbox"></i>Teams</a>
                                 <div id="submenu-7" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="">Bet</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="addtoss.php">Add Toss Game</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="rules.php" ><i class="fa fa-gavel"></i>Rules</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="wallet.php" ><i class="fa fa-google-wallet"></i>Withdrawal</a>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="addteam.php">Add Team</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="manageteam.php">Manage All Teams</a>
+                                        </li>
                             </li>
                         </ul>
                     </div>
-                </nav>
-            </div>
-        </div>
-        <!-- ============================================================== -->
-        <!-- end left sidebar -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- wrapper  -->
-        <!-- ============================================================== -->
-        <div class="dashboard-wrapper">
-            <div class="dashboard-ecommerce">
-                <div class="container-fluid dashboard-content ">
-                    <!-- ============================================================== -->
-                    <!-- pageheader  -->
-                    <!-- ============================================================== -->
-                    <div class="row">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="page-header">
-                                <h2 class="pageheader-title"><?php echo $SiteName; ?> Dashboard</h2>
+                    </li>
 
-                                <div class="page-breadcrumb">
-                                    <nav aria-label="breadcrumb">
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="../index.php" class="breadcrumb-link">Dashboard</a></li>
-                                            <li class="breadcrumb-item"><a href="" class="breadcrumb-link">Bet</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Add Toss</li>
-                                        </ol>
-                                    </nav>
-                                </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="rules.php"><i class="fa fa-gavel"></i>Rules</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="wallet.php"><i class="fa fa-google-wallet"></i>Withdrawal</a>
+                    </li>
+                    </ul>
+            </div>
+            </nav>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- end left sidebar -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- wrapper  -->
+    <!-- ============================================================== -->
+    <div class="dashboard-wrapper">
+        <div class="dashboard-ecommerce">
+            <div class="container-fluid dashboard-content ">
+                <!-- ============================================================== -->
+                <!-- pageheader  -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="page-header">
+                            <h2 class="pageheader-title"><?php echo $SiteName; ?> Dashboard</h2>
+
+                            <div class="page-breadcrumb">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="../index.php" class="breadcrumb-link">Dashboard</a></li>
+                                        <li class="breadcrumb-item"><a href="" class="breadcrumb-link">Bet</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Add Toss</li>
+                                    </ol>
+                                </nav>
                             </div>
                         </div>
                     </div>
-                    <!-- ============================================================== -->
-                    <!-- end pageheader  -->
-                    <!-- ============================================================== -->
+                </div>
+                <!-- ============================================================== -->
+                <!-- end pageheader  -->
+                <!-- ============================================================== -->
 
-                    <div class="container1" id="formbox">
-                        <h2>Add A Toss</h2>
+                <div class="container1" id="formbox">
+                    <h2>Add A Toss</h2>
 
-                        <form action="addtoss.php" method="post">
-                            <label>Select Sport</label>
-                            <select name="sport" class="form-control" id="sportDropdownSelect">
-                                <option value="">Select</option>
-                                <?php
-                                $sql = "SELECT * FROM `sport` WHERE  `status` = 1";
-                                $result = mysqli_query($con, $sql);
-                                if (mysqli_num_rows($result) > 0) {
-                                    while ($row = mysqli_fetch_array($result)) {
-                                        echo "<option value='$row[0]'>$row[1]</option>";
-                                    }
-                                }
-                                ?>
-
-                            </select>
-                            <br>
-                            <label>Select Team A</label>
-                            <select name="teama" class="form-control" id="SelectTeam1"></select>
-                            <br>
-                            <label>Select Team B</label>
-                            <select name="teamb" class="form-control" id="SelectTeam2"></select>
-
-                            <br>
-                            <label>Winning Percentage</label>
-                            <input type="number" class="form-control" name="percentage" placeholder="Percentage" required>
-                            <br>
-                            <label>Date And Time</label>
-                            <input class="form-control" type="datetime-local" name="time" min="2019-10-01T00:00">
-                            <br>
-                            <input type="submit" name="submit" value="Add Toss" class="btn btn-success">
-                            <input type="reset" value="Reset" class="btn btn-danger">
-                        </form>
-                    </div>
-
-                    <div class="container1" id="result">
-                        <p id="resultText">
+                    <form action="addtoss.php" method="post">
+                        <label>Select Sport</label>
+                        <select name="sport" class="form-control" id="sportDropdownSelect">
+                            <option value="">Select</option>
                             <?php
-                            if (isset($_GET['added'])) {
-                                echo "
+                            $sql = "SELECT * FROM `sport` WHERE  `status` = 1";
+                            $result = mysqli_query($con, $sql);
+                            if (mysqli_num_rows($result) > 0) {
+                                while ($row = mysqli_fetch_array($result)) {
+                                    echo "<option value='$row[0]'>$row[1]</option>";
+                                }
+                            }
+                            ?>
+
+                        </select>
+                        <br>
+                        <label>Select Team A</label>
+                        <select name="teama" class="form-control" id="SelectTeam1"></select>
+                        <br>
+                        <label>Select Team B</label>
+                        <select name="teamb" class="form-control" id="SelectTeam2"></select>
+
+                        <br>
+                        <label>Winning Percentage</label>
+                        <input type="number" class="form-control" name="percentage" placeholder="Percentage" required>
+                        <br>
+                        <label>Date And Time</label>
+                        <input class="form-control" type="datetime-local" name="time" min="2019-10-01T00:00">
+                        <br>
+                        <input type="submit" name="submit" value="Add Toss" class="btn btn-success">
+                        <input type="reset" value="Reset" class="btn btn-danger">
+                    </form>
+                </div>
+
+                <div class="container1" id="result">
+                    <p id="resultText">
+                        <?php
+                        if (isset($_GET['added'])) {
+                            echo "
                                 <script>
                                 document.getElementById('formbox').style.display = 'none';
                                </script>
 
                                <h3 class='text-success'>Toss Game Added! </h3>
                                 ";
-                                echo '<a href="addtoss.php" class="btn btn-success">Ok</a>';
-                            }
-                            ?>
-                        </p>
-                    </div>
-
+                            echo '<a href="addtoss.php" class="btn btn-success">Ok</a>';
+                        }
+                        ?>
+                    </p>
                 </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-            <div class="footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                            Copyright © 2019 <?php echo $SiteName; ?> All rights reserved. Dashboard by <a href="https://bilwg.com/">Bilwg</a>.
-                        </div>
 
-                    </div>
-                </div>
             </div>
-            <!-- ============================================================== -->
-            <!-- end footer -->
-            <!-- ============================================================== -->
         </div>
         <!-- ============================================================== -->
-        <!-- end wrapper  -->
+        <!-- footer -->
         <!-- ============================================================== -->
+        <div class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                        Copyright © 2019 <?php echo $SiteName; ?> All rights reserved. Dashboard by <a href="https://bilwg.com/">Bilwg</a>.
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end footer -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- end wrapper  -->
+    <!-- ============================================================== -->
     </div>
     <!-- ============================================================== -->
     <!-- end main wrapper  -->
