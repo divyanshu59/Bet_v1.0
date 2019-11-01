@@ -22,6 +22,7 @@ if($login == 1)
 <head>
     <title><?php echo $SiteName; ?> - Home</title>
     <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <div id="bg"></div>

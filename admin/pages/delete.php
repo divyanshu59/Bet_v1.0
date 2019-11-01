@@ -43,6 +43,9 @@ if (isset($_COOKIE['Alogin'])) {
                     $sql = "DELETE FROM `toss` WHERE `id` = '$id' ";
                     $result = mysqli_query($con, $sql);
 
+                    $sql = "DELETE FROM `tossbet` WHERE `tossid` = '$id' ";
+                    $result = mysqli_query($con, $sql);
+
                     header('Location: ../index.php');
                 }
         }
@@ -69,6 +72,9 @@ if (isset($_COOKIE['Alogin'])) {
 
 
                     $sql = "DELETE FROM `score` WHERE `id` = '$id' ";
+                    $result = mysqli_query($con, $sql);
+
+                    $sql = "DELETE FROM `scorebet` WHERE `tossid` = '$id' ";
                     $result = mysqli_query($con, $sql);
 
                     header('Location: ../index.php');
@@ -99,6 +105,9 @@ if (isset($_COOKIE['Alogin'])) {
                     $sql = "DELETE FROM `multiplayer` WHERE `id` = '$id' ";
                     $result = mysqli_query($con, $sql);
 
+                    $sql = "DELETE FROM `multiplayerbet` WHERE `tossid` = '$id' ";
+                    $result = mysqli_query($con, $sql);
+
                     header('Location: ../index.php');
                 }
         }
@@ -126,6 +135,8 @@ if (isset($_COOKIE['Alogin'])) {
 
 
                     $sql = "DELETE FROM `1v1` WHERE `id` = '$id' ";
+                    $result = mysqli_query($con, $sql);
+                    $sql = "DELETE FROM `1v1bet` WHERE `tossid` = '$id' ";
                     $result = mysqli_query($con, $sql);
 
                     header('Location: ../index.php');
@@ -156,6 +167,9 @@ if (isset($_COOKIE['Alogin'])) {
 
 
                     $sql = "DELETE FROM `2v2` WHERE `id` = '$id' ";
+                    $result = mysqli_query($con, $sql);
+                    
+                    $sql = "DELETE FROM `2v2bet` WHERE `tossid` = '$id' ";
                     $result = mysqli_query($con, $sql);
 
                     header('Location: ../index.php');

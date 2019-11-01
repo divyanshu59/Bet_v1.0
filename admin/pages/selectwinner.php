@@ -401,11 +401,16 @@ if (isset($_POST['submit'])) {
 
 
 
-                    $sql = "UPDATE `tossbet` SET `status` = 0 WHERE `id` = '$teamid' ";
+                    $sql = "UPDATE `tossbet` SET `status` = 2 WHERE `id` = '$teamid' ";
                     $result = mysqli_query($con, $sql);
 
                     header('Location: ../index.php');
                 }
+            }
+            else
+            {
+                $sql = "UPDATE `tossbet` SET `status` = 0 WHERE `id` = '$teamid' ";
+                $result = mysqli_query($con, $sql);
             }
             $sql = "UPDATE `toss` SET `winteam`= '$team', `status` = 0 WHERE `id` = '$id' ";
             $result = mysqli_query($con, $sql);
@@ -437,11 +442,16 @@ if (isset($_POST['submit'])) {
                     $sql = "UPDATE `score` SET `winteam`= '$team', `status` = 0 WHERE `id` = '$id' ";
                     $result = mysqli_query($con, $sql);
 
-                    $sql = "UPDATE `scorebet` SET `status` = 0 WHERE `id` = '$teamid' ";
+                    $sql = "UPDATE `scorebet` SET `status` = 2 WHERE `id` = '$teamid' ";
                     $result = mysqli_query($con, $sql);
 
                     header('Location: ../index.php');
                 }
+            }
+            else
+            {
+                $sql = "UPDATE `scorebet` SET `status` = 0 WHERE `id` = '$teamid' ";
+                $result = mysqli_query($con, $sql);
             }
         }
     } elseif ($type == 'multiplayer') {
@@ -468,12 +478,18 @@ if (isset($_POST['submit'])) {
 
 
 
-                    $sql = "UPDATE `multiplayerbet` SET `status` = 0 WHERE `id` = '$teamid' ";
+                    $sql = "UPDATE `multiplayerbet` SET `status` = 2 WHERE `id` = '$teamid' ";
                     $result = mysqli_query($con, $sql);
 
                     header('Location: ../index.php');
                 }
             }
+            else
+            {
+                $sql = "UPDATE `multiplayerbet` SET `status` = 0 WHERE `id` = '$teamid' ";
+                $result = mysqli_query($con, $sql);
+            }
+
             $sql = "UPDATE `multiplayer` SET `winteam`= '$team', `status` = 0 WHERE `id` = '$id' ";
             $result = mysqli_query($con, $sql);
         }
@@ -510,7 +526,7 @@ if (isset($_POST['submit'])) {
 
 
 
-                            $sql = "UPDATE `1v1bet` SET `status` = 0 WHERE `id` = '$teamid' ";
+                            $sql = "UPDATE `1v1bet` SET `status` = 2 WHERE `id` = '$teamid' ";
                             $result = mysqli_query($con, $sql);
 
                             header('Location: ../index.php');
@@ -521,6 +537,11 @@ if (isset($_POST['submit'])) {
             $sql = "UPDATE `1v1` SET `winteam`= '$team', `status` = 0 WHERE `id` = '$id' ";
             $result = mysqli_query($con, $sql);
         }
+        else
+            {
+                $sql = "UPDATE `1v1bet` SET `status` = 0 WHERE `id` = '$teamid' ";
+                $result = mysqli_query($con, $sql);
+            }
     }
     } elseif ($type == '2v2') {
 
@@ -555,13 +576,18 @@ if (isset($_POST['submit'])) {
 
 
 
-                            $sql = "UPDATE `2v2bet` SET `status` = 0 WHERE `id` = '$teamid' ";
+                            $sql = "UPDATE `2v2bet` SET `status` = 2 WHERE `id` = '$teamid' ";
                             $result = mysqli_query($con, $sql);
 
                             header('Location: ../index.php');
                         }
                     }
                 }
+            }
+            else
+            {
+                $sql = "UPDATE `2v2bet` SET `status` = 0 WHERE `id` = '$teamid' ";
+                $result = mysqli_query($con, $sql);
             }
             $sql = "UPDATE `2v2` SET `winteam`= '$team', `status` = 0 WHERE `id` = '$id' ";
             $result = mysqli_query($con, $sql);

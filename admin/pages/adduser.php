@@ -304,8 +304,8 @@ if (isset($_POST['submit'])) {
     $username = $name;
     $username .= rand(0, 100000);
 
-    $sql = "INSERT INTO `users`(`name`, `username`, `password`, `credits`, `status`) 
-    VALUES ('$name','$username','$password','$credits',1)";
+    $sql = "INSERT INTO `users`(`name`, `username`, `email`, `password`, `phone`, `credits`, `status`, `profile`) 
+    VALUES ('$name','$username','','$password','','$credits',1,'')";
     $queryRun = mysqli_query($con, $sql);
     if ($queryRun) {
         $text = "

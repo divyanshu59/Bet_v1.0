@@ -67,8 +67,7 @@ $netExposure = exposer($con, $username);
             <div id="items"><a><i class="fa fa-bank" aria-hidden="true"></i> Balance Information
                     <br><br>
                     Credits: <?php echo $credits ?>
-                    <br><br>
-                    Net Exposure: <?php echo $netExposure; ?>
+              
                 </a></div>
             <div id="items"><a href="openbets.php"><i class="fa fa-list" aria-hidden="true"></i> Open Bets</a></div>
             <div id="items"><a href="bettingpnl.php"><i class="fa fa-money" aria-hidden="true"></i> Betting P&L</a></div>
