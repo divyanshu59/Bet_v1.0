@@ -245,15 +245,26 @@ if (isset($_COOKIE['Alogin'])) {
                                             } else {
                                                 $status = "<span style='color: green;'>Transaction Completed</span>";
                                             }
+
                                             echo "
                                              <tr>
                                              <td>#$row[0]</td>
                                              <td>$row[1]</td>
                                              <td>$row[2]</td>
                                              <td>$row[3]</td>
-                                             <td>$status</td>
-                                             <td><a href='approve.php?id=$row[0]' class='btn btn-success'>Approve</td>
+                                             <td>$status</td>";
+
+                                            if ($row[4] == 0) {
+                                                echo "
+                                                <td><a href='approve.php?id=$row[0]' class='btn btn-success'>Approve</td>
                                              <td><a href='decline.php?id=$row[0]' class='btn btn-danger'>Decline</td>
+                                                ";
+                                            } else {
+                                                echo
+                                                    "<td colspan='2'>AlreadyDone</td>";
+                                            }
+
+                                            echo "
                                              </tr>
                                              ";
                                         }
