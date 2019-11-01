@@ -89,6 +89,9 @@ $netExposure = exposer($con, $username);
                         } elseif ($row[7] == 2) {
                             echo "<span style='color: green;'>Yeah! You Won</span>";
                         }
+                        elseif ($row[7] == 3) {
+                            echo "<span style='color: red;'>Manually Closed </span>";
+                        }
                         echo "</div>";
                     }
                 } else {
@@ -119,6 +122,9 @@ $netExposure = exposer($con, $username);
                         } elseif ($row[7] == 2) {
                             echo "<span style='color: green;'>Yeah! You Won</span>";
                         }
+                        elseif ($row[7] == 3) {
+                            echo "<span style='color: red;'>Manually Closed </span>";
+                        }
                         echo "</div>";
                     }
                 } else {
@@ -148,6 +154,9 @@ $netExposure = exposer($con, $username);
                             echo "<span style='color: red;'>Sorry, You Loos the Game</span>";
                         } elseif ($row[6] == 2) {
                             echo "<span style='color: green;'>Yeah! You Won</span>";
+                        }
+                        elseif ($row[6] == 3) {
+                            echo "<span style='color: red;'>Manually Closed </span>";
                         }
                         echo "</div>";
                     }
@@ -180,6 +189,9 @@ $netExposure = exposer($con, $username);
                         } elseif ($row[7] == 2) {
                             echo "<span style='color: green;'>Yeah! You Won</span>";
                         }
+                        elseif ($row[7] == 3) {
+                            echo "<span style='color: red;'>Manually Closed </span>";
+                        }
                         echo "</div>";
                     }
                 } else {
@@ -209,6 +221,9 @@ $netExposure = exposer($con, $username);
                             echo "<span style='color: red;'>Sorry, You Loos the Game</span>";
                         } elseif ($row[6] == 2) {
                             echo "<span style='color: green;'>Yeah! You Won</span>";
+                        }
+                        elseif ($row[6] == 3) {
+                            echo "<span style='color: red;'>Manually Closed </span>";
                         }
                         echo "</div>";
                     }

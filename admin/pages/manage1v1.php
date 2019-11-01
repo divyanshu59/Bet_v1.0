@@ -258,6 +258,8 @@ if (isset($_COOKIE['Alogin'])) {
                                              <td>$winteam</td>
                                              <td>$status</td>
                                              <td><a href='delete.php?id=$row[0]&type=1v1' class='btn btn-danger'>Delete</td>
+                                             <td><a href='close.php?id=$row[0]&type=1v1' class='btn btn-info'>Close</td>
+
                                              </tr>
                                              ";
                                         }
