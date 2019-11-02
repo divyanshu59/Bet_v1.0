@@ -36,11 +36,13 @@ if (isset($_COOKIE['Alogin'])) {
                     $credits = $credits + $winamount;
 
                     $sql = "UPDATE `users` SET `credits`=$credits WHERE `username` = '$username' ";
-                    $result = mysqli_query($con, $sql);
+                  //  $result = mysqli_query($con, $sql);
 
 
 
                     $sql = "UPDATE `tossbet` SET `status` = 3 WHERE `id` = '$teamid' ";
+                    $result = mysqli_query($con, $sql);
+                    $sql = "UPDATE `toss` SET `status` = 3 WHERE `id` = '$id' ";
                     $result = mysqli_query($con, $sql);
 
 
@@ -65,11 +67,14 @@ if (isset($_COOKIE['Alogin'])) {
                     $credits = $credits + $winamount;
 
                     $sql = "UPDATE `users` SET `credits`=$credits WHERE `username` = '$username' ";
-                    $result = mysqli_query($con, $sql);
+               //     $result = mysqli_query($con, $sql);
 
 
 
                     $sql = "UPDATE `scorebet` SET `status` = 3 WHERE `id` = '$teamid' ";
+                    $result = mysqli_query($con, $sql);
+                    
+                    $sql = "UPDATE `score` SET `status` = 3 WHERE `id` = '$id' ";
                     $result = mysqli_query($con, $sql);
 
                     header('Location: ../index.php');
@@ -93,11 +98,14 @@ if (isset($_COOKIE['Alogin'])) {
                     $credits = $credits + $winamount;
 
                     $sql = "UPDATE `users` SET `credits`=$credits WHERE `username` = '$username' ";
-                    $result = mysqli_query($con, $sql);
+                 //   $result = mysqli_query($con, $sql);
 
 
 
                     $sql = "UPDATE `multiplayerbet` SET `status` = 3 WHERE `id` = '$teamid' ";
+                    $result = mysqli_query($con, $sql);
+                    
+                    $sql = "UPDATE `multiplayer` SET `status` = 3 WHERE `id` = '$id' ";
                     $result = mysqli_query($con, $sql);
 
                     header('Location: ../index.php');
@@ -127,6 +135,9 @@ if (isset($_COOKIE['Alogin'])) {
 
 
                     $sql = "UPDATE `1v1bet` SET `status` = 3 WHERE `id` = '$teamid' ";
+                 //   $result = mysqli_query($con, $sql);
+                 
+                 $sql = "UPDATE `1v1` SET `status` = 3 WHERE `id` = '$id' ";
                     $result = mysqli_query($con, $sql);
 
                     header('Location: ../index.php');
@@ -152,11 +163,14 @@ if (isset($_COOKIE['Alogin'])) {
                     $credits = $credits + $winamount;
 
                     $sql = "UPDATE `users` SET `credits`=$credits WHERE `username` = '$username' ";
-                    $result = mysqli_query($con, $sql);
+                   // $result = mysqli_query($con, $sql);
 
 
 
                     $sql = "UPDATE `2v2bet` SET `status` = 3 WHERE `id` = '$teamid' ";
+                    $result = mysqli_query($con, $sql);
+                    
+                    $sql = "UPDATE `2v2` SET `status` = 3 WHERE `id` = '$id' ";
                     $result = mysqli_query($con, $sql);
 
                     header('Location: ../index.php');

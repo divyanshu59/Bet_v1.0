@@ -378,7 +378,7 @@ if (isset($_POST['submit'])) {
     $team = $_POST['team'];
 
     if ($type == 'toss') {
-        $sql = "SELECT * FROM `tossbet` WHERE `tossid` = '$id' and `status` = 1 ";
+        $sql = "SELECT * FROM `tossbet` WHERE `tossid` = '$id' ";
         $result = mysqli_query($con, $sql);
         if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_array($result);
@@ -417,7 +417,7 @@ if (isset($_POST['submit'])) {
         }
     } elseif ($type == 'score') {
         $score = $_POST['score'];
-        $sql = "SELECT * FROM `scorebet` WHERE `tossid` = '$id' and `status` = 1 ";
+        $sql = "SELECT * FROM `scorebet` WHERE `tossid` = '$id' ";
         $result = mysqli_query($con, $sql);
         if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_array($result);
@@ -455,7 +455,7 @@ if (isset($_POST['submit'])) {
             }
         }
     } elseif ($type == 'multiplayer') {
-        $sql = "SELECT * FROM `multiplayerbet` WHERE `tossid` = '$id' and `status` = 1 ";
+        $sql = "SELECT * FROM `multiplayerbet` WHERE `tossid` = '$id'";
         $result = mysqli_query($con, $sql);
         if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_array($result);
@@ -495,7 +495,7 @@ if (isset($_POST['submit'])) {
         }
     } elseif ($type == '1v1') {
 
-        $sql = "SELECT * FROM `1v1bet` WHERE `tossid` = '$id' and `status` = 1 ";
+        $sql = "SELECT * FROM `1v1bet` WHERE `tossid` = '$id'  ";
         $result = mysqli_query($con, $sql);
         if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_array($result);
@@ -545,7 +545,7 @@ if (isset($_POST['submit'])) {
     }
     } elseif ($type == '2v2') {
 
-        $sql = "SELECT * FROM `2v2bet` WHERE `tossid` = '$id' and `status` = 1 ";
+        $sql = "SELECT * FROM `2v2bet` WHERE `tossid` = '$id'  ";
         $result = mysqli_query($con, $sql);
         if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_array($result);
