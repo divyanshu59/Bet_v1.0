@@ -63,9 +63,10 @@ $netExposure = exposer($con, $username);
 
         <div id="content">
             <div id="box">
+                
                 <h2>Open Bets</h2>
                 <hr>
-                <p><b>1 Vs 1 Betting</b></p>
+                <!--<p><b>1 Vs 1 Betting</b></p>
                 <?php
                  $sql = "SELECT * FROM `1v1bet` WHERE `username` = '$username' and `status` = 1 ";
                  $result = mysqli_query($con, $sql);
@@ -154,6 +155,8 @@ $netExposure = exposer($con, $username);
                     echo "No Bets Available";
                 }
                 ?>
+
+            -->
                 <p><b>Toss Betting</b></p>
                 <?php
                  $sql = "SELECT * FROM `tossbet` WHERE `username` = '$username' and `status` = 1 ";

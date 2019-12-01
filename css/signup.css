@@ -151,8 +151,8 @@ main section#primary h1 {
 
 @media (min-width: 840px) {
   main section#primary h1 {
-    width: 30%;
-    font-size: 4em;
+    width: 35%;
+    font-size: 3em;
     line-height: 0.9em;
     text-align: right;
   }

@@ -141,7 +141,7 @@ $netExposure = exposer($con, $username);
                                 <br>
                                 <br>
                                 <label>Enter Credits Amount</label>
-                                <input type='number' id='text' name='amount'>
+                                <input type='number' min='100' id='text' name='amount'>
                                 <br>
                                 <input type='hidden' value='$row[3]' name='teamA' >
                                 <input type='hidden' value='$row[4]' name='teamB' >

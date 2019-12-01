@@ -83,7 +83,7 @@ $netExposure = exposer($con, $username);
                 <h2>Betting</h2>
                 <hr>
                 <?php
-                $sql = "SELECT * FROM `multiplayer` WHERE `status` = 1 and `time` > now() and `id` = '$id' ";
+                $sql = "SELECT * FROM `score` WHERE `status` = 1 and `time` > now() and `id` = '$id' ";
                 $result = mysqli_query($con, $sql);
                 if (mysqli_num_rows($result) > 0) {
                     $row = mysqli_fetch_array($result);
@@ -119,7 +119,7 @@ $netExposure = exposer($con, $username);
                                 <input type='number' id='text' name='score'>
                                 <br><br>
                                 <label>Enter Credits Amount</label>
-                                <input type='number' id='text' name='amount'>
+                                <input type='number' min='100' id='text' name='amount'>
                                 <br>
                                 <input type='hidden' value='$username' name='username' >
                                 <input type='hidden' value='$row[0]' name='tossid' >

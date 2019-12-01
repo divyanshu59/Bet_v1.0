@@ -101,6 +101,7 @@ $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
 
                     ?>
                 </div>
+                <!--
                 <hr>
                 <p>Score Gussing</p>
                 <div id="flexbox">
@@ -257,6 +258,8 @@ $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
 
                     ?>
                 </div>
+
+                -->
             </div>
         </div>
     </main>

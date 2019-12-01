@@ -1,0 +1,1 @@
+[02-Nov-2019 12:13:41 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home/futurebe/public_html/admin/pages/rules.php on line 294

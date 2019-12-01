@@ -119,7 +119,7 @@ $netExposure = exposer($con, $username);
                                 <br>
                                 <br>
                                 <label>Enter Credits Amount</label>
-                                <input type='number' id='text' name='amount'>
+                                <input type='number' min='100' id='text' name='amount'>
                                 <br>
                                 <input type='hidden' value='$username' name='username' >
                                 <input type='hidden' value='$row[0]' name='tossid' >

@@ -17,9 +17,9 @@ if ($con->connect_error) {
 // echo "Database Connected successfully";
 
 /* GLOBAL VARIABLES */
-$SiteName = "Bet World";
-$TagLine1 = "Your Personal Assistant";
-$TagLine2 = "Get Help With Your Daily Life Stuff.";
+$SiteName = "FutureBet Online";
+$TagLine1 = "A Good Punter Never";
+$TagLine2 = "looses his nerve. He just keep playing on!";
 
 
 function exposer($con,$username){
