@@ -165,7 +165,7 @@ if (isset($_COOKIE['Alogin'])) {
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-7" aria-controls="submenu-7"><i class="fas fa-fw fa-inbox"></i>Teams</a>
                                 <div id="submenu-7" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
-                                    <li class="nav-item">
+                                        <li class="nav-item">
                                             <a class="nav-link" href="addteam.php">Add Team</a>
                                         </li>
                                         <li class="nav-item">
@@ -381,37 +381,37 @@ if (isset($_POST['submit'])) {
         $sql = "SELECT * FROM `tossbet` WHERE `tossid` = '$id' ";
         $result = mysqli_query($con, $sql);
         if (mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_array($result);
-            $teamid = $row[0];
-            $username = $row[1];
-            $winamount = $row[5];
-            $selectedteam = $row[3];
+            while ($row = mysqli_fetch_array($result)) {
+                $teamid = $row[0];
+                $username = $row[1];
+                $winamount = $row[5];
+                $selectedteam = $row[3];
 
-            if ($selectedteam == $team) {
+                if ($selectedteam == $team) {
 
-                $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
-                $result = mysqli_query($con, $sql);
-                if (mysqli_num_rows($result) > 0) {
-                    $row = mysqli_fetch_array($result);
-                    $credits = $row[6];
-                    $credits = $credits + $winamount;
+                    $sql1 = "SELECT * FROM `users` WHERE `username` = '$username' ";
+                    $result1 = mysqli_query($con, $sql1);
+                    if (mysqli_num_rows($result1) > 0) {
+                        $row1 = mysqli_fetch_array($result1);
+                        $credits = $row1[6];
+                        $credits = $credits + $winamount;
 
-                    $sql = "UPDATE `users` SET `credits`=$credits WHERE `username` = '$username' ";
-                    $result = mysqli_query($con, $sql);
+                        $sql2 = "UPDATE `users` SET `credits`=$credits WHERE `username` = '$username' ";
+                        $result2 = mysqli_query($con, $sql2);
 
 
 
-                    $sql = "UPDATE `tossbet` SET `status` = 2 WHERE `id` = '$teamid' ";
-                    $result = mysqli_query($con, $sql);
+                        $sql3 = "UPDATE `tossbet` SET `status` = 2 WHERE `id` = '$teamid' ";
+                        $result3 = mysqli_query($con, $sql3);
 
-                    header('Location: ../index.php');
+                        header('Location: ../index.php');
+                    }
+                } else {
+                    $sql4 = "UPDATE `tossbet` SET `status` = 0 WHERE `id` = '$teamid' ";
+                    $result4 = mysqli_query($con, $sql4);
                 }
             }
-            else
-            {
-                $sql = "UPDATE `tossbet` SET `status` = 0 WHERE `id` = '$teamid' ";
-                $result = mysqli_query($con, $sql);
-            }
+
             $sql = "UPDATE `toss` SET `winteam`= '$team', `status` = 0 WHERE `id` = '$id' ";
             $result = mysqli_query($con, $sql);
         }
@@ -447,9 +447,7 @@ if (isset($_POST['submit'])) {
 
                     header('Location: ../index.php');
                 }
-            }
-            else
-            {
+            } else {
                 $sql = "UPDATE `scorebet` SET `status` = 0 WHERE `id` = '$teamid' ";
                 $result = mysqli_query($con, $sql);
             }
@@ -483,9 +481,7 @@ if (isset($_POST['submit'])) {
 
                     header('Location: ../index.php');
                 }
-            }
-            else
-            {
+            } else {
                 $sql = "UPDATE `multiplayerbet` SET `status` = 0 WHERE `id` = '$teamid' ";
                 $result = mysqli_query($con, $sql);
             }
@@ -513,7 +509,7 @@ if (isset($_POST['submit'])) {
                     $array = explode(',', $usernameTEMP);
                     foreach ($array as $username) //loop over values
                     {
-                        
+
                         $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
                         $result = mysqli_query($con, $sql);
                         if (mysqli_num_rows($result) > 0) {
@@ -533,16 +529,14 @@ if (isset($_POST['submit'])) {
                         }
                     }
                 }
-            
-            $sql = "UPDATE `1v1` SET `winteam`= '$team', `status` = 0 WHERE `id` = '$id' ";
-            $result = mysqli_query($con, $sql);
-        }
-        else
-            {
+
+                $sql = "UPDATE `1v1` SET `winteam`= '$team', `status` = 0 WHERE `id` = '$id' ";
+                $result = mysqli_query($con, $sql);
+            } else {
                 $sql = "UPDATE `1v1bet` SET `status` = 0 WHERE `id` = '$teamid' ";
                 $result = mysqli_query($con, $sql);
             }
-    }
+        }
     } elseif ($type == '2v2') {
 
         $sql = "SELECT * FROM `2v2bet` WHERE `tossid` = '$id'  ";
@@ -563,7 +557,7 @@ if (isset($_POST['submit'])) {
                     $array = explode(',', $usernameTEMP);
                     foreach ($array as $username) //loop over values
                     {
-                        
+
                         $sql = "SELECT * FROM `users` WHERE `username` = '$username' ";
                         $result = mysqli_query($con, $sql);
                         if (mysqli_num_rows($result) > 0) {
@@ -583,9 +577,7 @@ if (isset($_POST['submit'])) {
                         }
                     }
                 }
-            }
-            else
-            {
+            } else {
                 $sql = "UPDATE `2v2bet` SET `status` = 0 WHERE `id` = '$teamid' ";
                 $result = mysqli_query($con, $sql);
             }
