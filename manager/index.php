@@ -3,10 +3,10 @@ require_once '../assets/import/config.php';
 
 
 $login =0;
-if(isset($_COOKIE['Alogin']))
+if(isset($_COOKIE['Mlogin']))
 {
-	$adminemail = $_COOKIE["Aemail"];
-    $adminname = $_COOKIE["Aname"];
+	$adminemail = $_COOKIE["Memail"];
+    $adminname = $_COOKIE["Mname"];
 }
 else
 {
@@ -32,7 +32,7 @@ else
     <link rel="stylesheet" href="assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="assets/vendor/charts/c3charts/c3.css">
     <link rel="stylesheet" href="assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
-    <title><?php echo $SiteName; ?> Admin Dashboard </title>
+    <title><?php echo $SiteName; ?> Manager Dashboard </title>
 </head>
 
 <body>

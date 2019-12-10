@@ -26,6 +26,7 @@ if(isset($_COOKIE['Alogin']))
       <img src="assets/images/logo.png" id="icon" alt="User Icon" />
     </div>
     <br>
+    <strong>Manager Account Login</strong>
     <!-- Login Form -->
     <form action="login.php" method="POST">
       <input type="email" id="login" class="fadeIn second" name="email" placeholder="EMAIL">
@@ -54,17 +55,17 @@ if(isset($_POST['submit']))
 
     if($email != "" && $pass != "")
     {
-        $sql = "SELECT * FROM `admin` WHERE `email` = '$email' AND `password` = '$pass' AND `status` = 1 ";
+        $sql = "SELECT * FROM `manager` WHERE `email` = '$email' AND `password` = '$pass' AND `status` = 1 ";
         $queryRun = mysqli_query($con, $sql);
 	    if (mysqli_num_rows($queryRun) > 0) {
             while ($row = mysqli_fetch_array($queryRun)) {
         $name= $row[3];
         }
     }
-            setcookie("Alogin", "1", time() + (86400 * 5), "/");
-			setcookie("Aemail", $email, time() + (86400 * 5), "/");
-			setcookie("Apassword", $pass, time() + (86400 * 5), "/");
-			setcookie("Aname", $name, time() + (86400 * 5), "/");
+            setcookie("Mlogin", "1", time() + (86400 * 5), "/");
+			setcookie("Memail", $email, time() + (86400 * 5), "/");
+			setcookie("Mpassword", $pass, time() + (86400 * 5), "/");
+			setcookie("Mname", $name, time() + (86400 * 5), "/");
 			header('Location: index.php');
     }
 }
