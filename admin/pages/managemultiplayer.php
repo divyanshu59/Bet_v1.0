@@ -113,6 +113,8 @@ if (isset($_COOKIE['Alogin'])) {
                                         <li class="nav-item">
                                             <a class="nav-link" href="adduser.php">Add User </a>
                                             <a class="nav-link" href="manageuser.php">Manage User </a>
+                                            <a class="nav-link" href="addmanager.php">Add Manager </a>
+                                            <a class="nav-link" href="managemanager.php">Manage Manager </a>
                                         </li>
                                     </ul>
                                 </div>

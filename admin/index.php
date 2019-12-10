@@ -113,6 +113,8 @@ else
                                         <li class="nav-item">
                                             <a class="nav-link" href="pages/adduser.php">Add User </a>
                                             <a class="nav-link" href="pages/manageuser.php">Manage User </a>
+                                            <a class="nav-link" href="pages/addmanager.php">Add Manager </a>
+                                            <a class="nav-link" href="pages/managemanager.php">Manage Manager </a>
                                         </li>
                                     </ul>
                                 </div>
