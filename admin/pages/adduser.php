@@ -83,7 +83,7 @@ if (isset($_GET['delete'])) {
                                     <span class="status"></span><span class="ml-2">Available</span>
                                 </div>
                                 <span class="dropdown-item" href="#"><?php echo $adminemail ?></span>
-                                <a class="dropdown-item" href="logout.php"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                                <a class="dropdown-item" href="../logout.php"><i class="fas fa-power-off mr-2"></i>Logout</a>
                             </div>
                         </li>
                     </ul>
