@@ -4,9 +4,17 @@ require_once '../../assets/import/config.php';
 
 
 $login = 0;
-if (isset($_COOKIE['Alogin'])) {
-    $adminemail = $_COOKIE["Aemail"];
-    $adminname = $_COOKIE["Aname"];
+if (isset($_COOKIE['Mlogin'])) {
+    $adminemail = $_COOKIE["Memail"];
+    $adminname = $_COOKIE["Mname"];
+
+    $sql = "SELECT * FROM `manager` Where email = '$adminemail' ";
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_array($result);
+        $credits = $row[5];
+        $managerid = $row[0];
+    }
 } else {
     header('Location: login.php');
     die("Please Wait You are Rediritig..");
@@ -36,7 +44,7 @@ if (isset($_GET['delete'])) {
     <link rel="stylesheet" href="../assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../assets/vendor/charts/c3charts/c3.css">
     <link rel="stylesheet" href="../assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
-    <title><?php echo $SiteName; ?> Admin Dashboard </title>
+    <title><?php echo $SiteName; ?> Manager Dashboard </title>
 </head>
 
 <body style="overflow-y: hidden;">
@@ -56,23 +64,9 @@ if (isset($_GET['delete'])) {
                 <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto navbar-right-top">
 
+
                         <li class="nav-item dropdown notification">
-                            <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span class="indicator"></span></a>
-                            <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
-                                <li>
-                                    <div class="notification-title"> Notification</div>
-                                    <div class="notification-list">
-                                        <div class="list-group">
-                                            <center>
-                                                <p>No Notifications</p>
-                                            </center>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="list-footer"> <a href="#">View all notifications</a></div>
-                                </li>
-                            </ul>
+                            <span style="font-size: 23px; padding: 30px;">Credits - <?php echo $credits ?></span>
                         </li>
 
                         <li class="nav-item dropdown nav-user">
@@ -123,20 +117,7 @@ if (isset($_GET['delete'])) {
                                     </ul>
                                 </div>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class="fab fa-fw fa-wpforms"></i>Bet</a>
-                                <div id="submenu-3" class="collapse submenu" style="">
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="addtoss.php">Add Toss Game</a>
-                                            <a class="nav-link" href="score.php">Score Gussing</a>
-                                            <a class="nav-link" href="1v1.php">1 Vs 1 Game</a>
-                                            <a class="nav-link" href="2v2.php">2 vs 2 Game</a>
-                                            <a class="nav-link" href="multiplayer.php">Multiplayer Game</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4"><i class="fab fa-fw fa-wpforms"></i>Manage Bets</a>
                                 <div id="submenu-4" class="collapse submenu" style="">
@@ -158,9 +139,7 @@ if (isset($_GET['delete'])) {
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-6" aria-controls="submenu-6"><i class="fas fa-fw fa-file"></i> Sports </a>
                                 <div id="submenu-6" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="addsport.php">Add Sport</a>
-                                        </li>
+
                                         <li class="nav-item">
                                             <a class="nav-link" href="managesport.php">Manage All Sports</a>
                                         </li>
@@ -171,21 +150,18 @@ if (isset($_GET['delete'])) {
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-7" aria-controls="submenu-7"><i class="fas fa-fw fa-inbox"></i>Teams</a>
                                 <div id="submenu-7" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="addteam.php">Add Team</a>
-                                        </li>
+
                                         <li class="nav-item">
                                             <a class="nav-link" href="manageteam.php">Manage All Teams</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
+
                             <li class="nav-item">
-                                <a class="nav-link" href="rules.php" ><i class="fa fa-gavel"></i>Rules</a>
+                                <a class="nav-link" href="wallet.php"><i class="fa fa-google-wallet"></i>Withdrawal</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="wallet.php" ><i class="fa fa-google-wallet"></i>Withdrawal</a>
-                            </li>
+
                         </ul>
                     </div>
                 </nav>
@@ -228,6 +204,8 @@ if (isset($_GET['delete'])) {
                         <h2>Add A User</h2>
 
                         <form action="adduser.php" method="post">
+                            <input type="hidden" name="manager" value="<?php echo $managerid ?>">
+
                             <label for="name">Name</label>
                             <input type="text" class="form-control" name="name" placeholder="Enter Name of User" required>
                             <br>
@@ -301,14 +279,31 @@ if (isset($_POST['submit'])) {
     $name = $_POST['name'];
     $password = $_POST['password'];
     $credits = $_POST['credits'];
+    // Manager Credits
+    $manager = $_POST['manager'];
+
+    $sql = "SELECT * FROM `manager` Where id = '$manager' ";
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_array($result);
+        $managercredits = $row[5];
+    }
+
     $username = $name;
     $username .= rand(0, 100000);
 
-    $sql = "INSERT INTO `users`(`name`, `username`, `email`, `password`, `phone`, `credits`, `status`, `profile`) 
-    VALUES ('$name','$username','','$password','','$credits',1,'')";
-    $queryRun = mysqli_query($con, $sql);
-    if ($queryRun) {
-        $text = "
+    if ($managercredits >= $credits) {
+
+        $managercredits = $managercredits - $credits;
+
+        $sql = "UPDATE `manager` SET `credits`='$managercredits' WHERE `id` = '$manager' ";
+        $result = mysqli_query($con, $sql);
+
+        $sql = "INSERT INTO `users`(`name`, `username`, `email`, `password`, `phone`, `credits`, `status`, `profile`,`manager`) 
+        VALUES ('$name','$username','','$password','','$credits',1,'','$manager')";
+        $queryRun = mysqli_query($con, $sql);
+        if ($queryRun) {
+            $text = "
         <script>
         document.getElementById('formbox').style.display = 'none';
        </script>
@@ -316,9 +311,24 @@ if (isset($_POST['submit'])) {
         <p>Username: $username </p>
         <p>Password: $password </p>
         ";
-        setcookie("text", $text, time() + (86400 * 5), "/");
-        header('Location: adduser.php');
+            setcookie("text", $text, time() + (86400 * 5), "/");
+            header('Location: adduser.php');
+        }
     }
-}
+    else 
+    {
+        $text = "
+        <script>
+        document.getElementById('formbox').style.display = 'none';
+       </script>
+       <h3 style='color: red;'>User Not Added!</h3>
+       <p>Credits Must Be Less Than Your Credits Points.</p>
+        
+        ";
+            setcookie("text", $text, time() + (86400 * 5), "/");
+            header('Location: adduser.php');
+        }
+    }
+
 
 ?>

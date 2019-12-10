@@ -1,23 +1,27 @@
-<?php 
+<?php
 require_once '../assets/import/config.php';
 
 
-$login =0;
-if(isset($_COOKIE['Mlogin']))
-{
-	$adminemail = $_COOKIE["Memail"];
+$login = 0;
+if (isset($_COOKIE['Mlogin'])) {
+    $adminemail = $_COOKIE["Memail"];
     $adminname = $_COOKIE["Mname"];
-}
-else
-{
+
+    $sql = "SELECT * FROM `manager` Where email = '$adminemail' ";
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_array($result);
+        $credits = $row[5];
+    }
+} else {
     header('Location: login.php');
-	die("Please Wait You are Rediritig..");
+    die("Please Wait You are Rediritig..");
 }
 ?>
 
 <!doctype html>
 <html lang="en">
- 
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -51,29 +55,16 @@ else
                 </button>
                 <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto navbar-right-top">
-                        
+
                         <li class="nav-item dropdown notification">
-                            <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span class="indicator"></span></a>
-                            <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
-                                <li>
-                                    <div class="notification-title"> Notification</div>
-                                    <div class="notification-list">
-                                        <div class="list-group">
-                                            <center><p>No Notifications</p></center>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="list-footer"> <a href="#">View all notifications</a></div>
-                                </li>
-                            </ul>
+                            <span style="font-size: 23px; padding: 30px;">Credits - <?php echo $credits ?></span>
                         </li>
-                       
+
                         <li class="nav-item dropdown nav-user">
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/avatar-1.jpg" alt="" class="user-avatar-md rounded-circle"></a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
-                                    <h5 class="mb-0 text-white nav-user-name"><?php echo $adminname ?>  </h5>
+                                    <h5 class="mb-0 text-white nav-user-name"><?php echo $adminname ?> </h5>
                                     <span class="status"></span><span class="ml-2">Available</span>
                                 </div>
                                 <span class="dropdown-item" href="#"><?php echo $adminemail ?></span>
@@ -103,8 +94,8 @@ else
                                 Menu
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " href="index.php" ><i class="fa fa-fw fa-user-circle"></i>Dashboard </a>
-                                
+                                <a class="nav-link " href="index.php"><i class="fa fa-fw fa-user-circle"></i>Dashboard </a>
+
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>Users</a>
@@ -117,20 +108,7 @@ else
                                     </ul>
                                 </div>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class="fab fa-fw fa-wpforms"></i>Bet</a>
-                                <div id="submenu-3" class="collapse submenu" style="">
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="pages/addtoss.php">Add Toss Game</a>
-                                            <a class="nav-link" href="pages/score.php">Score Gussing</a>
-                                            <a class="nav-link" href="pages/1v1.php">1 Vs 1 Game</a>
-                                            <a class="nav-link" href="pages/2v2.php">2 vs 2 Game</a>
-                                            <a class="nav-link" href="pages/multiplayer.php">Multiplayer Game</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4"><i class="fab fa-fw fa-wpforms"></i>Manage Bets</a>
                                 <div id="submenu-4" class="collapse submenu" style="">
@@ -152,9 +130,7 @@ else
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-6" aria-controls="submenu-6"><i class="fas fa-fw fa-file"></i> Sports </a>
                                 <div id="submenu-6" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="pages/addsport.php">Add Sport</a>
-                                        </li>
+
                                         <li class="nav-item">
                                             <a class="nav-link" href="pages/managesport.php">Manage All Sports</a>
                                         </li>
@@ -165,22 +141,18 @@ else
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-7" aria-controls="submenu-7"><i class="fas fa-fw fa-inbox"></i>Teams</a>
                                 <div id="submenu-7" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="pages/addteam.php">Add Team</a>
-                                        </li>
+
                                         <li class="nav-item">
                                             <a class="nav-link" href="pages/manageteam.php">Manage All Teams</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
+
                             <li class="nav-item">
-                                <a class="nav-link" href="pages/rules.php" ><i class="fa fa-gavel"></i>Rules</a>
+                                <a class="nav-link" href="pages/wallet.php"><i class="fa fa-google-wallet"></i>Withdrawal</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="pages/wallet.php" ><i class="fa fa-google-wallet"></i>Withdrawal</a>
-                            </li>
-                            
+
                         </ul>
                     </div>
                 </nav>
@@ -202,7 +174,7 @@ else
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="page-header">
                                 <h2 class="pageheader-title"><?php echo $SiteName; ?> Dashboard</h2>
-                                
+
                                 <div class="page-breadcrumb">
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb">
@@ -218,9 +190,9 @@ else
                     <!-- end pageheader  -->
                     <!-- ============================================================== -->
                     <div class="ecommerce-widget">
-                      <br><br><br><br><br><br><br><br><br>
-                      <br><br><br><br><br><br><br><br><br>
-                      <br><br><br><br><br><br><br><br>
+                        <br><br><br><br><br><br><br><br><br>
+                        <br><br><br><br><br><br><br><br><br>
+                        <br><br><br><br><br><br><br><br>
                     </div>
                 </div>
             </div>
@@ -231,9 +203,9 @@ else
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                             Copyright © 2019 <?php echo $SiteName; ?>  All rights reserved. Dashboard by <a href="https://bilwg.com/">Bilwg</a>.
+                            Copyright © 2019 <?php echo $SiteName; ?> All rights reserved. Dashboard by <a href="https://bilwg.com/">Bilwg</a>.
                         </div>
-                     
+
                     </div>
                 </div>
             </div>
@@ -270,5 +242,5 @@ else
     <script src="assets/vendor/charts/c3charts/C3chartjs.js"></script>
     <script src="assets/libs/js/dashboard-ecommerce.js"></script>
 </body>
- 
+
 </html>
