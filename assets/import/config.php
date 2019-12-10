@@ -7,6 +7,7 @@ $username = "root";
 $password = "";
 $database = "betting";
 
+
 // Create connection
 $con = new mysqli($servername, $username, $password, $database);
 

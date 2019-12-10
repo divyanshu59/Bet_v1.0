@@ -11,7 +11,7 @@ body {
 body #bg {
   -webkit-clip-path: polygon(100% 0, 100% 82%, 68% 100%, 0 100%, 0 0);
           clip-path: polygon(100% 0, 100% 82%, 68% 100%, 0 100%, 0 0);
-  background: #005dff;
+  background: #2f4757;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -31,6 +31,13 @@ body header a {
   padding: 15px;
   display: block;
   text-transform: uppercase;
+}
+
+body header a img {
+  display: block;
+  position: fixed;
+  top: -5px;
+  height: 150px;
 }
 
 @media (min-width: 840px) {
@@ -104,7 +111,7 @@ main section#card form#login input:hover, main section#card form#login input:foc
 main section#card form#login button {
   padding: 10px;
   margin: 2px;
-  background: #005dff;
+  background: #2f4757;
   color: white;
   border: none;
   border-radius: 10px;
@@ -152,7 +159,7 @@ main section#primary h1 {
 @media (min-width: 840px) {
   main section#primary h1 {
     width: 30%;
-    font-size: 4em;
+    font-size: 3.4em;
     line-height: 0.9em;
   }
 }
@@ -162,7 +169,7 @@ main section#primary p {
 }
 
 main section#primary a {
-  color: #001333;
+  color: black;
   border-radius: 15px;
   text-decoration: none;
   text-transform: uppercase;

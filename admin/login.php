@@ -22,7 +22,7 @@ if(isset($_COOKIE['Alogin']))
     <!-- Tabs Titles -->
 
     <!-- Icon -->
-    <div class="fadeIn first">
+    <div class="fadeIn first" style="background: #2f4757;">
       <img src="assets/images/logo.png" id="icon" alt="User Icon" />
     </div>
     <br>
@@ -35,7 +35,7 @@ if(isset($_COOKIE['Alogin']))
 
   
     <div id="formFooter">
-      <a class="underlineHover" href="https://bilwg.com">Designed By Bilwg</a>
+      <a class="underlineHover" href="https://bilwg.com">Designed By Bilwg Services</a>
     </div>
 
   </div>

@@ -28,12 +28,9 @@ if($login == 1)
     <div id="bg"></div>
 
     <header>
-        <a href="index.php"><?php echo $SiteName; ?></a>
+        <a href="index.php"><img src="assets/img/logo.png"></a>
     </header>
-
     <main>
-       
-
         <section id="primary">
             <h1><?php echo $TagLine1; ?></h1>
             <p><?php echo $TagLine2; ?></p>

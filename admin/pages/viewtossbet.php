@@ -226,6 +226,22 @@ if (isset($_GET['id'])) {
                     <!-- ============================================================== -->
 
                     <div class="container1" id="formbox">
+                        <?php 
+                            $sql1 = "select DISTINCT team from tossbet where tossid = $id"; 
+                            $result = mysqli_query($con, $sql1);
+                            while ($row = mysqli_fetch_array($result)){
+                            
+                                $sql2 = "select sum(`amount`) from tossbet where tossid = $id and `team` = '$row[0]' "; 
+                                $result1 = mysqli_query($con, $sql2);
+                                $row12q = mysqli_fetch_array($result1);
+                                echo "$row[0] Credits: - $row12q[0] <br>";
+                                
+                            }
+                        
+                        ?>
+                        <hr>
+                        
+                        
                         <h2>View Bets - Toss Game #<?php echo $id ?></h2>
 
                         <div class="table-responsive">

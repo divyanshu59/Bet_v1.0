@@ -1,10 +1,10 @@
 $colors: (
-  bg: #005dff,
+  bg: #2f4757,
   //bg: #f00,
   textPrimary: rgb(255, 255, 255),
   bgWhite: rgb(255, 255, 255),
-  primary-light: lighten(#005dff, 40%),
-  primary-dark: darken(#005dff, 40%),
+  primary-light: lighten(#2f4757, 40%),
+  primary-dark: darken(#2f4757, 40%),
   dark: rgb(253, 214, 39),
   black: lighten(#000000, 20%)
 );
@@ -52,6 +52,12 @@ body {
     padding: $padding;
     display: block;
     text-transform: uppercase;
+    img{
+      display: block;
+      position: fixed;
+      top: -5px;
+      height: 150px;
+    }
     @include desktop {
         font-size: 25px;
     }
@@ -151,7 +157,7 @@ main {
 
       @include desktop {
         width: 30%;
-        font-size: 4em;
+        font-size: 3.4em;
         line-height: 0.9em;
       }
     }
