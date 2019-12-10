@@ -2,7 +2,7 @@
 require_once '../assets/import/config.php';
 
 
-if(isset($_COOKIE['Alogin']))
+if(isset($_COOKIE['Mlogin']))
 {
 	header('Location: index.php');
 	die("Please Wait You are Rediritig..");
